@@ -19,12 +19,12 @@ public let numberFormatter: NumberFormatter = {
 public class Calculations {
     public var calculatedAmount = 0.0
     public var calculatedAmount2 = 0.0
-    var apellKassifSOUfl = 0.0
-    var apellKassifASfl = 0.0
-    var apellKassifSOUurl = 0.0
-    var apellKassifASurl = 0.0
-    var textResultSOU = ""
-    var textResultAS = ""
+    public var apellKassifSOUfl = 0.0
+    public var apellKassifASfl = 0.0
+    public var apellKassifSOUurl = 0.0
+    public var apellKassifASurl = 0.0
+    public var textResultSOU = ""
+    public var textResultAS = ""
     public init() {}
     
     public func calculateCourtFee(_ claimAmount: String, courtTypeFee: String, instanceFee: String, isPrikaz: Bool, isPravaPotrebirel: Bool, typeIstec: String) -> (Double, Double, String, String) {
