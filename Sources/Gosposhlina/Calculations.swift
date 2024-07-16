@@ -2,7 +2,6 @@
 //  Calculations.swift
 //  Gosposhlina
 
-import SwiftUI
 import Foundation
 
     // Формирование чисел - округление до двух знаков, и всегда вверх
