@@ -10,6 +10,12 @@ public enum CourtType: String {
     case arbitrazh
 }
 
+public enum InstanceType {
+    case one
+    case two
+    case three
+}
+
     // Формирование чисел - округление до двух знаков, и всегда вверх
 public let numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
@@ -35,7 +41,7 @@ public class Calculations {
     public init() {}
     
     // Метод расчета с 2024 года
-    public func courtFee2024(_ amount: Double, courtType: CourtType, instanceFee: String) -> (Double, String) {
+    public func courtFee2024(_ amount: Double, courtType: CourtType, instanceType: InstanceType) -> (Double, String) {
         
         // суд общей юрисдикции
         if amount <= 100000 {
@@ -93,7 +99,7 @@ public class Calculations {
     }
     
     // Метод расчета с 2005 до 2024 года
-    public func courtFee(_ amount: Double, courtType: CourtType, instanceFee: String, isPrikaz: Bool, isPravaPotrebirel: Bool, typeIstec: String) -> (Double, String) {
+    public func courtFee(_ amount: Double, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, isPravaPotrebirel: Bool, isFizik: Bool) -> (Double, String) {
         // суд общей юрисдикции
         if amount <= 20000 {
             calculatedAmount = max(400, amount * 0.04)
