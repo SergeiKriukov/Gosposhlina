@@ -17,7 +17,7 @@ public enum InstanceType {
     case four
 }
 
-    // Формирование чисел - округление до двух знаков, и всегда вверх
+    // Формирование чисел - округление до двух знаков
 public let numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
@@ -41,7 +41,7 @@ public class Calculations {
 
     public init() {}
     
-    // Метод расчета с 2024 года
+    // Метод расчета с 2024 года (проект, еще не принят закон)
     public func courtFee2024(_ amount: Double, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, isPravaPotrebirel: Bool, isFizik: Bool) -> (Double, String) {
         
         // суд общей юрисдикции
@@ -132,8 +132,8 @@ public class Calculations {
                     calculatedAmount = max(round(calculatedAmount2) / 2, 10000) // Ограничение в 10000 рублей
                     textLabel = ""
                 } else {
-                    calculatedAmount = round(calculatedAmount)
-                    textLabel = textResultSOU
+                    calculatedAmount = round(calculatedAmount2)
+                    textLabel = textResultAS
                 }
                 case .two:
                     if isFizik {
@@ -166,7 +166,7 @@ public class Calculations {
 
     }
     
-    // Метод расчета с 2005 до 2024 года
+    // Метод расчета с 2005 до 2024 года (пока действует, актуальный)
     public func courtFee(_ amount: Double, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, isPravaPotrebirel: Bool, isFizik: Bool) -> (Double, String) {
         // суд общей юрисдикции
         if amount <= 20000 {
@@ -215,12 +215,96 @@ public class Calculations {
         // возвращаем результат - сумму и описание
         switch courtType {
         case .commonUrisdiction:
-            calculatedAmount = round(calculatedAmount)
-            textLabel = textResultSOU
+            switch instanceType {
+                case .one:
+                if isPrikaz {
+                    // Если выбран Судебный приказ
+                    calculatedAmount = round(calculatedAmount) / 2 //
+                    textLabel = ""
+                } else {
+                    if isPravaPotrebirel {
+                        // Если выбрано Защита прав потребителей
+                        
+                        if isPravaPotrebirel && amount < 1_000_000 {
+                            calculatedAmount = 0
+                        } else if isPravaPotrebirel && !(amount < 1_000_000) {
+                            calculatedAmount = calculatedAmount - 13_200
+                        }
+                        
+                    } else {
+                        calculatedAmount = round(calculatedAmount)
+                        textLabel = textResultSOU
+                    }
+                }
+                case .two:
+                    if isFizik {
+                        calculatedAmount = 150
+                        textLabel = ""
+                    } else {
+                        calculatedAmount = 3000
+                        textLabel = ""
+                    }
+                    // проверить
+            case .three:
+                if isFizik {
+                    calculatedAmount = 300
+                    textLabel = ""
+                } else {
+                    calculatedAmount = 6000
+                    textLabel = ""
+                }
+                // проверить
+            case .four:
+                if isFizik {
+                    calculatedAmount = 300
+                    textLabel = ""
+                } else {
+                    calculatedAmount = 6000
+                    textLabel = ""
+                }
+            }
+            
             
         case .arbitrazh:
-            calculatedAmount = round(calculatedAmount2)
-            textLabel = textResultAS
+//            calculatedAmount = round(calculatedAmount2)
+//            textLabel = textResultAS
+            switch instanceType {
+                case .one:
+                if isPrikaz {
+                    // Если выбран Судебный приказ в арбитражном
+                    calculatedAmount = round(calculatedAmount2) / 2
+                    textLabel = ""
+                } else {
+                    calculatedAmount = round(calculatedAmount2)
+                    textLabel = textResultAS
+                }
+                case .two:
+                    if isFizik {
+                        calculatedAmount = 1500
+                        textLabel = ""
+                    } else {
+                        calculatedAmount = 3000
+                        textLabel = ""
+                    }
+            case .three:
+                // проверить
+                if isFizik {
+                    calculatedAmount = 300
+                    textLabel = ""
+                } else {
+                    calculatedAmount = 6000
+                    textLabel = ""
+                }
+            case .four:
+                // проверить
+                if isFizik {
+                    calculatedAmount = 300
+                    textLabel = ""
+                } else {
+                    calculatedAmount = 6000
+                    textLabel = ""
+                }
+            }
         }
         
         return (calculatedAmount, textLabel)
