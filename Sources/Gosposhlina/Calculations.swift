@@ -14,6 +14,7 @@ public enum InstanceType {
     case one
     case two
     case three
+    case four
 }
 
     // Формирование чисел - округление до двух знаков, и всегда вверх
@@ -41,7 +42,7 @@ public class Calculations {
     public init() {}
     
     // Метод расчета с 2024 года
-    public func courtFee2024(_ amount: Double, courtType: CourtType, instanceType: InstanceType) -> (Double, String) {
+    public func courtFee2024(_ amount: Double, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, isPravaPotrebirel: Bool, isFizik: Bool) -> (Double, String) {
         
         // суд общей юрисдикции
         if amount <= 100000 {
@@ -86,16 +87,83 @@ public class Calculations {
         // В зависимости от типа суда
         // возвращаем результат - сумму и описание
         switch courtType {
-        case .commonUrisdiction:
-            calculatedAmount = round(calculatedAmount)
-            textLabel = textResultSOU
-            
-        case .arbitrazh:
-            calculatedAmount = round(calculatedAmount2)
-            textLabel = textResultAS
+            case .commonUrisdiction:
+                switch instanceType {
+                    case .one:
+                    if isPrikaz {
+                        // Если выбран Судебный приказ
+                        calculatedAmount = max(round(calculatedAmount) / 2, 5000) // Ограничение в 5000 рублей
+                        textLabel = ""
+                    } else {
+                        calculatedAmount = round(calculatedAmount)
+                        textLabel = textResultSOU
+                    }
+                    case .two:
+                        if isFizik {
+                            calculatedAmount = 3000
+                            textLabel = ""
+                        } else {
+                            calculatedAmount = 15000
+                            textLabel = ""
+                        }
+                case .three:
+                    if isFizik {
+                        calculatedAmount = 5000
+                        textLabel = ""
+                    } else {
+                        calculatedAmount = 20000
+                        textLabel = ""
+                    }
+                case .four:
+                    if isFizik {
+                        calculatedAmount = 7000
+                        textLabel = ""
+                    } else {
+                        calculatedAmount = 25000
+                        textLabel = ""
+                    }
+                }
+                
+            case .arbitrazh:
+            switch instanceType {
+                case .one:
+                if isPrikaz {
+                    // Если выбран Судебный приказ в арбитражном
+                    calculatedAmount = max(round(calculatedAmount2) / 2, 10000) // Ограничение в 10000 рублей
+                    textLabel = ""
+                } else {
+                    calculatedAmount = round(calculatedAmount)
+                    textLabel = textResultSOU
+                }
+                case .two:
+                    if isFizik {
+                        calculatedAmount = 15000
+                        textLabel = ""
+                    } else {
+                        calculatedAmount = 30000
+                        textLabel = ""
+                    }
+            case .three:
+                if isFizik {
+                    calculatedAmount = 25000
+                    textLabel = ""
+                } else {
+                    calculatedAmount = 50000
+                    textLabel = ""
+                }
+            case .four:
+                if isFizik {
+                    calculatedAmount = 40000
+                    textLabel = ""
+                } else {
+                    calculatedAmount = 80000
+                    textLabel = ""
+                }
+            }
         }
-        
+
         return (calculatedAmount, textLabel)
+
     }
     
     // Метод расчета с 2005 до 2024 года
