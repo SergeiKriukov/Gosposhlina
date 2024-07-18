@@ -311,7 +311,7 @@ public class Calculations {
     }
 
     // Метод расчета госпошлины до 2005 года
-    public func courtFeeBefore2005(_ amount: Double, courtType: CourtType) -> (Double, String) {
+    public func courtFeeBefore2005(_ amount: Double, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, isPravaPotrebirel: Bool, isFizik: Bool) -> (Double, String) {
         
         // Суд общей юрисдикции
         if amount <= 1000000 / 1000 {
@@ -359,12 +359,95 @@ public class Calculations {
         // возвращаем результат - сумму и описание
         switch courtType {
         case .commonUrisdiction:
-            calculatedAmount = round(calculatedAmount)
-            textLabel = textResultSOU
+            switch instanceType {
+                case .one:
+                if isPrikaz {
+                    // Если выбран Судебный приказ
+                    //   calculatedAmount = round(calculatedAmount) / 2 //
+                    textLabel = "нет"
+                } else {
+                    if isPravaPotrebirel {
+                        // Если выбрано Защита прав потребителей
+                        
+                        if isPravaPotrebirel && amount < 1_000_000 {
+                          //  calculatedAmount = 0
+                            textLabel = "нет"
+                        } else if isPravaPotrebirel && !(amount < 1_000_000) {
+                           // calculatedAmount = calculatedAmount - 13_200
+                            textLabel = "нет"
+                        }
+                        
+                    } else {
+                        calculatedAmount = round(calculatedAmount)
+                        textLabel = textResultSOU
+                    }
+                }
+                case .two:
+                    if isFizik {
+                        calculatedAmount = round(calculatedAmount) / 2
+                        textLabel = "50% от размера государственной пошлины, исчисленной из суммы, оспариваемой стороной или другим лицом, участвующим в деле"
+                    } else {
+                        calculatedAmount = round(calculatedAmount) / 2
+                        textLabel = "50% от размера государственной пошлины, исчисленной из суммы, оспариваемой стороной или другим лицом, участвующим в деле"
+                    }
+                    // проверить
+            case .three:
+                if isFizik {
+                  //  calculatedAmount = 300
+                    textLabel = "нет"
+                } else {
+                  //  calculatedAmount = 6000
+                    textLabel = "нет"
+                }
+                // проверить
+            case .four:
+                if isFizik {
+                 //   calculatedAmount = 300
+                    textLabel = "нет"
+                } else {
+                 //   calculatedAmount = 6000
+                    textLabel = "нет"
+                }
+            }
             
         case .arbitrazh:
-            calculatedAmount = round(calculatedAmount2)
-            textLabel = textResultAS
+            switch instanceType {
+                case .one:
+                if isPrikaz {
+                    // Если выбран Судебный приказ в арбитражном
+                  //  calculatedAmount = round(calculatedAmount2) / 2
+                    textLabel = "нет"
+                } else {
+                    calculatedAmount = round(calculatedAmount2)
+                    textLabel = textResultAS
+                }
+                case .two:
+                    if isFizik {
+                        calculatedAmount = round(calculatedAmount2) / 2
+                        textLabel = "50% от размера государственной пошлины, исчисленной из суммы, оспариваемой стороной или другим лицом, участвующим в деле"
+                    } else {
+                        calculatedAmount = round(calculatedAmount2) / 2
+                        textLabel = "50% от размера государственной пошлины, исчисленной из суммы, оспариваемой стороной или другим лицом, участвующим в деле"
+                    }
+            case .three:
+                // проверить
+                if isFizik {
+                  //  calculatedAmount = 300
+                    textLabel = "нет"
+                } else {
+                 //   calculatedAmount = 6000
+                    textLabel = "нет"
+                }
+            case .four:
+                // проверить
+                if isFizik {
+                //    calculatedAmount = 300
+                    textLabel = "нет"
+                } else {
+                 //   calculatedAmount = 6000
+                    textLabel = "нет"
+                }
+            }
         }
         
         return (calculatedAmount, textLabel)
