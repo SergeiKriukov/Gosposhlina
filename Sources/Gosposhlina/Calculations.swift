@@ -14,6 +14,7 @@ public enum InstanceType {
     case one
     case two
     case three
+    case four
 }
 
 public enum FeeMode: Int, CaseIterable {
