@@ -24,7 +24,7 @@ public enum FeeMode: Int, CaseIterable {
     case ru1991
     case kz1995
     
-    var title: String {
+    public var title: String {
         switch self {
         case .ruCurrent:
             "Действующая (с 01.01.2005)"
