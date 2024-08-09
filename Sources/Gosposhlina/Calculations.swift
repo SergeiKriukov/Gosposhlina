@@ -16,6 +16,29 @@ public enum InstanceType {
     case three
 }
 
+public enum FeeMode: Int, CaseIterable {
+    case ruCurrent
+    case ru2024
+    case ru1995
+    case ru1991
+    case kz1995
+    
+    var title: String {
+        switch self {
+        case .ruCurrent:
+            "Действующая (с 01.01.2005)"
+        case .ru2024:
+            "Проект от 08.07.2024 года"
+        case .ru1995:
+            "С 31.12.1995 по 01.01.2005 года"
+        case .ru1991:
+            "С 09.12.1991 по 31.12.1995 года"
+        case .kz1995:
+            "KZ: С 31.12.1995 по 01.01.2005 года"
+        }
+    }
+}
+
     // Формирование чисел - округление до двух знаков, и всегда вверх
 public let numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
@@ -38,7 +61,13 @@ public class Calculations {
     public var textResultAS = ""
     private var textLabel = ""
 
+    public var feeMode = FeeMode.ruCurrent
+    
     public init() {}
+    
+    public var feeModeTitle: String {
+        feeMode.title
+    }
     
     // Метод расчета с 2024 года
     public func courtFee2024(_ amount: Double, courtType: CourtType, instanceType: InstanceType) -> (Double, String) {
