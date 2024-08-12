@@ -144,7 +144,7 @@ public class Calculations {
             textResultAS = String(format: "325000 руб. + 1 проц. от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount2)
         } else {
             // Ограничение на максимальную сумму
-            calculatedAmount = min(725000 + (amount - 50000000) * 0.005, 10000000)
+            calculatedAmount2 = min(725000 + (amount - 50000000) * 0.005, 10000000)
             textResultAS = String(format: "725000 руб. + 0.5 проц. от (%.2f руб. - 50000000 руб.) = %.2f руб., но не более 10000000 руб.", amount, calculatedAmount2)
         }
 
