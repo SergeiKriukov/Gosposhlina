@@ -155,9 +155,19 @@ public class Calculations {
         // Защита прав потребителей (true/false)
         // Тип плательщика - ФЛ, ЮЛ
         
+        // SOU.1.PR1(500000).ZPP0.FL   500000 - это указание на максимальную цену иска, на которую может быть подан приказ (ГПК)
+        // SOU.1.PR0.ZPP0.-L основной расчет, первая инстанция СОЮ, приказ - нет, ЗПП - нет, лицо без разницы какое
+        // AS.1.PR0.ZPP0.UL
+        // AS.1.PR0.ZPP-.-L основной расчет, первая инстанция АС, приказ - нет, ЗПП - не бывает в АС, лицо без разницы какое
+        // AS.1.PR1(750000).ZPP-.-L   750000 - это указание на максимальную цену иска, на которую может быть подан приказ (АПК) - вариант 1
+        // AS.1.PR1(100000).ZPP-.-L   100000 - это указание на максимальную цену иска, на которую может быть подан приказ (АПК) - вариант 2
+        
         // Варианты:
-        // СОЮ, 1, false, false, ФЛ
-        // СОЮ, 1, true, (false), ФЛ
+        // СОЮ, 1, false, false, (ФЛ/ЮЛ)
+        // СОЮ, 1, true, (false), (ФЛ/ЮЛ) СУДЕБНЫЙ ПРИКАЗ = 50% от 1 инстанции
+        // АС, 1, true, (false), (ФЛ/ЮЛ) СУДЕБНЫЙ ПРИКАЗ = 50% от 1 инстанции, но не менее 8000 руб.
+        
+        // СОЮ, 1, (false), true, ФЛ (юрлицо не может быть) ЗАЩИТА ПРАВ ПОТРЕБИТЕЛЕЙ
         // СОЮ, 2, (true), (false), ФЛ - 3000
         // СОЮ, 2, (true), (false), ЮЛ - 15000
         // СОЮ, 3, (true), (false), ФЛ - 5000
@@ -457,24 +467,3 @@ public class Calculations {
            return (calculatedAmount, calculatedAmount2, textResultSOU, textResultAS)
        }
 }
-
-
-
-
- /*
-// Использование класса Calculations
-let claimAmount: Double = 10000 // Значение для примера
-var calculatedAmount: Double = 0
-var calculatedAmount2: Double = 0
-var calculationDescription: String = ""
-
-let calc = Calculations()
-let calculationResult = calc.calculateCourtFee(String(claimAmount), courtTypeFee: "String", instanceFee: "String", isPrikaz: true, isPravaPotrebirel: true, typeIstec: "String")
-calculatedAmount = calculationResult.0
-calculatedAmount2 = calculationResult.1
-calculationDescription = calculationResult.2
-
-print("Результат расчета 1: \(calculatedAmount)")
-print("Результат расчета 2: \(calculatedAmount2)")
-print("Текстовое описание расчета:\n\(calculationDescription)")
-*/
