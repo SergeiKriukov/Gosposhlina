@@ -284,22 +284,22 @@ public class Calculations {
                         }
                     } else if amount <= 100000 {
                         calculatedAmount = 800 + (amount - 20000) * 0.03
-                        textResultSOU = String(format: "800 руб. + 3 %% от (%.2f руб. - 20000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                        textLabel = String(format: "800 руб. + 3 %% от (%.2f руб. - 20000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
                     } else if amount <= 200000 {
                         calculatedAmount = 3200 + (amount - 100000) * 0.02
-                        textResultSOU = String(format: "3200 руб. + 2 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                        textLabel = String(format: "3200 руб. + 2 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
                     } else if amount <= 1000000 {
                         calculatedAmount = 5200 + (amount - 200000) * 0.01
-                        textResultSOU = String(format: "5200 руб. + 1 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                        textLabel = String(format: "5200 руб. + 1 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
                     } else {
                         calculatedAmount = min(60000, 13200 + (amount - 1000000) * 0.005)
-                        textResultSOU = String(format: "13200 руб. + 0.5 %% от (%.2f руб. - 1000000 руб.) = " + String(13200 + (amount - 1000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount, calculatedAmount)
+                        textLabel = String(format: "13200 руб. + 0.5 %% от (%.2f руб. - 1000000 руб.) = " + String(13200 + (amount - 1000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount, calculatedAmount)
                     }
                     
                     // Если приказ
                     if isPrikaz {
                         calculatedAmount = calculatedAmount/2
-                        if amount < 500000
+                        if amount <= 500000
                         {
                             textLabel = String("Цена иска менее 500000 рублей, поэтому возможно заявление о вынесении приказа.")
                          
@@ -363,30 +363,30 @@ public class Calculations {
                     
                     if amount <= 100000 {
                         calculatedAmount = max(2000, amount * 0.04)
-                        textResultAS = String(format: "4 %% от %.2f руб. = ", amount, calculatedAmount) + String(amount * 4 / 100) + " руб."
+                        textLabel = String(format: "4 %% от %.2f руб. = ", amount, calculatedAmount) + String(amount * 4 / 100) + " руб."
                         if calculatedAmount == 2000 {
-                            textResultAS += " Берётся 2000 руб."
+                            textLabel += " Берётся 2000 руб."
                         }
                     } else if amount <= 200000 {
                         calculatedAmount = round(4000 + (amount - 100000) * 0.03)
-                        textResultAS += String(format: "4000 руб. + 3 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                        textLabel += String(format: "4000 руб. + 3 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
                     } else if amount <= 1000000 {
                         calculatedAmount = 7000 + (amount - 200000) * 0.02
-                        textResultAS += String(format: "7000 руб. + 2 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                        textLabel += String(format: "7000 руб. + 2 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
                         
                     } else if amount <= 2000000 {
                         calculatedAmount = 23000 + (amount - 1000000) * 0.01
-                        textResultAS += String(format: "23000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                        textLabel += String(format: "23000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
                         
                     } else {
                         calculatedAmount = min(33000 + (amount - 2000000) * 0.005, 200000)
-                        textResultAS += String(format: "33000 руб. + 0.5 %% от (%.2f руб. - 2000000 руб.) = " + String(33000 + (amount - 2000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount, calculatedAmount)
+                        textLabel += String(format: "33000 руб. + 0.5 %% от (%.2f руб. - 2000000 руб.) = " + String(33000 + (amount - 2000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount, calculatedAmount)
                     }
                     
                     // Если приказ
                     if isPrikaz {
                         calculatedAmount = calculatedAmount/2
-                        if amount < 750000
+                        if amount <= 750000
                         {
                             textLabel = String("Цена иска менее 750000 рублей, поэтому возможно заявление о вынесении приказа.")
                          
