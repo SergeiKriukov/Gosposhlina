@@ -47,6 +47,12 @@ public enum FeeMode: Int, CaseIterable {
 public struct FeeResult {
     public var toPay: Double
     public var description: String
+    
+    public init(toPay: Double, description: String) {
+        self.toPay = toPay
+        self.description = description
+    }
+    
 }
 
 // СОЮ, 2, (true), (false), ФЛ - 3000
@@ -57,6 +63,14 @@ public struct FeeCode {
     public var isPrikaz: Bool
     public var potrebitel: Bool
     public var lawType: LawType
+    
+    public init(courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, potrebitel: Bool, lawType: LawType) {
+        self.courtType = courtType
+        self.instanceType = instanceType
+        self.isPrikaz = isPrikaz
+        self.potrebitel = potrebitel
+        self.lawType = lawType
+    }
 }
 
     // Формирование чисел - округление до двух знаков, и всегда вверх
