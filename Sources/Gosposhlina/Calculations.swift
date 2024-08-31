@@ -164,16 +164,12 @@ public class Calculations {
                         } else {
                             textLabel = String("Цена иска более 500000 рублей, поэтому приказ не предусмотрен.")
                         }
-     
-
-      
-                            
-                           
+  
                     }
                         
                     //    Если защита прав потребителей
                     if potrebitel {
-                        
+                        //
                     }
                     
                 case .two:
@@ -233,6 +229,19 @@ public class Calculations {
                         // Ограничение на максимальную сумму
                         calculatedAmount = min(725000 + (amount - 50000000) * 0.005, 10000000)
                         textLabel = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб., но не более 10000000 руб.", amount, calculatedAmount)
+                    }
+                    
+                    // Если приказ
+                    if isPrikaz {
+                        calculatedAmount = calculatedAmount/2
+                        if amount < 750000
+                        {
+                            textLabel = String("Цена иска менее 750000 рублей, поэтому возможно заявление о вынесении приказа.")
+                         
+                        } else {
+                            textLabel = String("Цена иска более 750000 рублей, поэтому приказ не предусмотрен.")
+                        }
+  
                     }
 
                     
