@@ -17,6 +17,10 @@ public enum InstanceType {
     case four
 }
 
+public enum LawType {
+    case fizik, urik
+}
+
 public enum FeeMode: Int, CaseIterable {
     case ruCurrent
     case ru2024
@@ -40,6 +44,20 @@ public enum FeeMode: Int, CaseIterable {
     }
 }
 
+public struct FeeResult {
+    var toPay: Double
+    var description: String
+}
+
+// СОЮ, 2, (true), (false), ФЛ - 3000
+
+public struct FeeCode {
+    var courtType: CourtType // СОЮ, АС ...
+    var instanceType: InstanceType
+    var isPrikaz: Bool
+    var potrebitel: Bool
+    var lawType: LawType
+}
 
     // Формирование чисел - округление до двух знаков, и всегда вверх
 public let numberFormatter: NumberFormatter = {
@@ -71,6 +89,45 @@ public class Calculations {
         feeMode.title
     }
     
+    /// Common method
+    public func courtFeeFor(_ mode: FeeMode, feeCode: FeeCode, of amount: Double) -> FeeResult {
+        var result = FeeResult(toPay: 0, description: "")
+        
+        switch mode {
+        case .ruCurrent:
+            print("calculate mode: \(mode.title)")
+            
+        case .ru2024:
+            print("calculate mode: \(mode.title)")
+            (result.toPay, result.description) = courtFee2024(
+                amount,
+                courtType: feeCode.courtType,
+                instanceType: feeCode.instanceType
+            )
+            
+        case .ru1995:
+            print("calculate mode: \(mode.title)")
+            (result.toPay, result.description) = courtFee(
+                amount,
+                courtType: feeCode.courtType,
+                instanceType: feeCode.instanceType,
+                isPrikaz: feeCode.isPrikaz,
+                isPravaPotrebirel: feeCode.potrebitel,
+                isFizik: feeCode.lawType == .fizik
+            )
+
+        case .ru1991:
+            print("calculate mode: \(mode.title)")
+
+        case .kz1995:
+            print("calculate mode: \(mode.title)")
+
+        }
+        
+        
+        return result
+    }
+    
     // Метод расчета с 09.09.2024 года
     public func courtFee2024(_ amount: Double, courtType: CourtType, instanceType: InstanceType) -> (Double, String) {
              // Суд общей юрисдикции
@@ -79,7 +136,7 @@ public class Calculations {
             textResultSOU = "Берётся 4000 руб."
         } else if amount <= 300000 {
             calculatedAmount = 4000 + (amount - 100000) * 0.03
-            textResultSOU = String(format: "4000 руб. + 3 проц. от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "4000 руб. + 3 \\%. от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 500000 {
             calculatedAmount = 10000 + (amount - 300000) * 0.025
             textResultSOU = String(format: "10000 руб. + 2.5 проц. от (%.2f руб. - 300000 руб.) = %.2f руб.", amount, calculatedAmount)
