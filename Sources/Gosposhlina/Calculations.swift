@@ -24,7 +24,7 @@ public enum LawType {
 public enum FeeMode: Int, CaseIterable {
     case ru09092024
     case ru01012005_08092024
-    case ru31121995_31122005
+    case ru31121995_31122004
     case ru09121991_31121995
     case kz31121995_01012005
     
@@ -35,7 +35,7 @@ public enum FeeMode: Int, CaseIterable {
             "Действующий c 09.09.2024 года"
         case .ru01012005_08092024:
             "С 01.01.2005 по 08.09.2024 года"
-        case .ru31121995_31122005:
+        case .ru31121995_31122004:
             "С 31.12.1995 по 31.12.2004 года"
         case .ru09121991_31121995:
             "С 09.12.1991 по 31.12.1995 года"
@@ -55,24 +55,6 @@ public struct FeeResult {
     }
     
 }
-
-// СОЮ, 2, (true), (false), ФЛ - 3000
-
-//public struct FeeCode {
-//    public var courtType: CourtType // СОЮ, АС ...
-//    public var instanceType: InstanceType
-//    public var isPrikaz: Bool
-//    public var potrebitel: Bool
-//    public var lawType: LawType
-//    
-//    public init(courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, potrebitel: Bool, lawType: LawType) {
-//        self.courtType = courtType
-//        self.instanceType = instanceType
-//        self.isPrikaz = isPrikaz
-//        self.potrebitel = potrebitel
-//        self.lawType = lawType
-//    }
-//}
 
     // Формирование чисел - округление до двух знаков, и всегда вверх
 public let numberFormatter: NumberFormatter = {
@@ -110,11 +92,8 @@ public class Calculations {
         
         switch mode {
         case .ru09092024:
-            print("calculate mode: \(mode.title)")
-
             switch courtType {
             case .commonUrisdiction:
-                print("commonUrisdiction")
                 
                 // все расчеты для СОЮ
                 switch instanceType {
@@ -157,7 +136,7 @@ public class Calculations {
                     // Если приказ
                     if isPrikaz {
                         calculatedAmount = calculatedAmount/2
-                        if amount < 500000
+                        if amount <= 500000
                         {
                             textLabel = String("Цена иска менее 500000 рублей, поэтому возможно заявление о вынесении приказа.")
                          
@@ -170,6 +149,12 @@ public class Calculations {
                     //    Если защита прав потребителей
                     if potrebitel {
                         //
+                        if amount <= 1000000 {
+                            calculatedAmount = 0
+                        } else {
+                            calculatedAmount = calculatedAmount - 25000
+                        }
+                        textLabel = String("В случае, если цена иска превышает 1 000 000 рублей, госпошлина уплачивается в сумме, исчисленной в соответствии с подпунктом 1 пункта 1 статьи 333.19 НК РФ и уменьшенной на сумму государственной пошлины, подлежащей уплате при цене иска 1 000 000 рублей. При цене иска 1 000 000 рублей госпошлина составляет 25 000 рублей.")
                     }
                     
                 case .two:
@@ -282,12 +267,173 @@ public class Calculations {
             
             
         case .ru01012005_08092024:
-            print("calculate mode: \(mode.title)")
+           // print("calculate mode: \(mode.title)")
+            switch courtType {
+            case .commonUrisdiction:
+                
+                // все расчеты для СОЮ
+                switch instanceType {
+                case .one:
+                    // расчеты госпошлины по первой инстанции
+                    // Суд общей юрисдикции, первая инстанция
+                    if amount <= 20000 {
+                        calculatedAmount = max(400, amount * 0.04)
+                        textResultSOU = String(format: "4 %% от %.2f руб. = ", amount, calculatedAmount) + String(amount * 4 / 100) + " руб."
+                        if calculatedAmount == 400 {
+                            textResultSOU += " Берётся 400 руб."
+                        }
+                    } else if amount <= 100000 {
+                        calculatedAmount = 800 + (amount - 20000) * 0.03
+                        textResultSOU = String(format: "800 руб. + 3 %% от (%.2f руб. - 20000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                    } else if amount <= 200000 {
+                        calculatedAmount = 3200 + (amount - 100000) * 0.02
+                        textResultSOU = String(format: "3200 руб. + 2 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                    } else if amount <= 1000000 {
+                        calculatedAmount = 5200 + (amount - 200000) * 0.01
+                        textResultSOU = String(format: "5200 руб. + 1 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+                    } else {
+                        calculatedAmount = min(60000, 13200 + (amount - 1000000) * 0.005)
+                        textResultSOU = String(format: "13200 руб. + 0.5 %% от (%.2f руб. - 1000000 руб.) = " + String(13200 + (amount - 1000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount, calculatedAmount)
+                    }
+                    
+                    // Если приказ
+                    if isPrikaz {
+                        calculatedAmount = calculatedAmount/2
+                        if amount < 500000
+                        {
+                            textLabel = String("Цена иска менее 500000 рублей, поэтому возможно заявление о вынесении приказа.")
+                         
+                        } else {
+                            textLabel = String("Цена иска более 500000 рублей, поэтому приказ не предусмотрен.")
+                        }
+  
+                    }
+                    
+                    //    Если защита прав потребителей
+                    if potrebitel {
+                        //
+                        if amount <= 1000000 {
+                            calculatedAmount = 0
+                        } else {
+                            calculatedAmount = calculatedAmount - 13200
+                        }
+                        textLabel = String("В случае, если цена иска превышает 1 000 000 рублей, госпошлина уплачивается в сумме, исчисленной в соответствии с подпунктом 1 пункта 1 статьи 333.19 НК РФ и уменьшенной на сумму государственной пошлины, подлежащей уплате при цене иска 1 000 000 рублей. При цене иска 1 000 000 рублей госпошлина составляет 13 200 рублей.")
+                    }
+                    
+                case .two:
+                    //   апелляция
+                    switch lawType {
+                    case .fizik:
+                        calculatedAmount = 150
+                        textLabel = "Фиксированная сумма за аппеляцию физического лица"
+                    case .urik:
+                        calculatedAmount = 3000
+                        textLabel = "Фиксированная сумма за аппеляцию юридического лица"
+                    }
+
+                case .three:
+                    //   кассация
+                    switch lawType {
+                    case .fizik:
+                        calculatedAmount = 150
+                        textLabel = "Фиксированная сумма за кассацию физического лица"
+                    case .urik:
+                        calculatedAmount = 3000
+                        textLabel = "Фиксированная сумма за кассацию юридического лица"
+                    }
+                    
+                case .four:
+                    //   кассация ВС РФ
+                    switch lawType {
+                    case .fizik:
+                        calculatedAmount = 300
+                        textLabel = "Фиксированная сумма за кассацию в ВС РФ физического лица"
+                    case .urik:
+                        calculatedAmount = 6000
+                        textLabel = "Фиксированная сумма за кассацию в ВС РФ юридического лица"
+                    }
+                }
+                                
+            case .arbitrazh:
+                print("arbitrazh")
+                // все расчеты для АС
+                switch instanceType {
+                case .one:
+                    // расчеты госпошлины по первой инстанции в АС
+                    
+                    if amount <= 100000 {
+                        calculatedAmount2 = max(2000, amount * 0.04)
+                        textResultAS = String(format: "4 %% от %.2f руб. = ", amount, calculatedAmount) + String(amount * 4 / 100) + " руб."
+                        if calculatedAmount2 == 2000 {
+                            textResultAS += " Берётся 2000 руб."
+                        }
+                    } else if amount <= 200000 {
+                        calculatedAmount2 = round(4000 + (amount - 100000) * 0.03)
+                        textResultAS += String(format: "4000 руб. + 3 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
+                    } else if amount <= 1000000 {
+                        calculatedAmount2 = 7000 + (amount - 200000) * 0.02
+                        textResultAS += String(format: "7000 руб. + 2 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
+                        
+                    } else if amount <= 2000000 {
+                        calculatedAmount2 = 23000 + (amount - 1000000) * 0.01
+                        textResultAS += String(format: "23000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
+                        
+                    } else {
+                        calculatedAmount2 = min(33000 + (amount - 2000000) * 0.005, 200000)
+                        textResultAS += String(format: "33000 руб. + 0.5 %% от (%.2f руб. - 2000000 руб.) = " + String(33000 + (amount - 2000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount2, calculatedAmount2)
+                    }
+                    
+                    // Если приказ
+                    if isPrikaz {
+                        calculatedAmount = calculatedAmount/2
+                        if amount < 750000
+                        {
+                            textLabel = String("Цена иска менее 750000 рублей, поэтому возможно заявление о вынесении приказа.")
+                         
+                        } else {
+                            textLabel = String("Цена иска более 750000 рублей, поэтому приказ не предусмотрен.")
+                        }
+  
+                    }
+
+                    
+                case .two:
+                    //   апелляция
+                    switch lawType {
+                    case .fizik:
+                        calculatedAmount = 150
+                        textLabel = "Фиксированная сумма за аппеляцию физического лица"
+                    case .urik:
+                        calculatedAmount = 3000
+                        textLabel = "Фиксированная сумма за аппеляцию юридического лица"
+                    }
+                    
+                    
+                case .three:
+                    //   кассация  в АС
+                    switch lawType {
+                    case .fizik:
+                        calculatedAmount = 150
+                        textLabel = "Фиксированная сумма за кассацию физического лица"
+                    case .urik:
+                        calculatedAmount = 3000
+                        textLabel = "Фиксированная сумма за кассацию юридического лица"
+                    }
+                case .four:
+                    //   кассация ВС РФ в АС
+                    switch lawType {
+                    case .fizik:
+                        calculatedAmount = 300
+                        textLabel = "Фиксированная сумма за кассацию в ВС РФ физического лица"
+                    case .urik:
+                        calculatedAmount = 6000
+                        textLabel = "Фиксированная сумма за кассацию в ВС РФ юридического лица"
+                    }
+                }
+            }
             
             
-            
-            
-        case .ru31121995_31122005:
+        case .ru31121995_31122004:
             print("calculate mode: \(mode.title)")
             
             
