@@ -136,7 +136,7 @@ public class Calculations {
             textResultSOU = "Берётся 4000 руб."
         } else if amount <= 300000 {
             calculatedAmount = 4000 + (amount - 100000) * 0.03
-            textResultSOU = String(format: "4000 руб. + 3 \\%. от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "4000 руб. + 3 проц. от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 500000 {
             calculatedAmount = 10000 + (amount - 300000) * 0.025
             textResultSOU = String(format: "10000 руб. + 2.5 проц. от (%.2f руб. - 300000 руб.) = %.2f руб.", amount, calculatedAmount)
