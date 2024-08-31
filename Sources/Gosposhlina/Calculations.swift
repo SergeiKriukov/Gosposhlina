@@ -154,6 +154,28 @@ public class Calculations {
                         textLabel = String(format: "314000 руб. + 0.15 %% от (%.2f руб. - 100000000 руб.) = %.2f руб., но не более 900000 руб.", amount, calculatedAmount)
                     }
                     
+                    // Если приказ
+                    if isPrikaz {
+                        calculatedAmount = calculatedAmount/2
+                        if amount < 500000
+                        {
+                            textLabel = String("Цена иска менее 500000 рублей, поэтому возможно заявление о вынесении приказа.")
+                         
+                        } else {
+                            textLabel = String("Цена иска более 500000 рублей, поэтому приказ не предусмотрен.")
+                        }
+     
+
+      
+                            
+                           
+                    }
+                        
+                    //    Если защита прав потребителей
+                    if potrebitel {
+                        
+                    }
+                    
                 case .two:
                     //   апелляция
                     switch lawType {
