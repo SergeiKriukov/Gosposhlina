@@ -136,32 +136,32 @@ public class Calculations {
             textResultSOU = "Берётся 4000 руб."
         } else if amount <= 300000 {
             calculatedAmount = 4000 + (amount - 100000) * 0.03
-            textResultSOU = String(format: "4000 руб. + 3 проц. от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "4000 руб. + 3 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 500000 {
             calculatedAmount = 10000 + (amount - 300000) * 0.025
-            textResultSOU = String(format: "10000 руб. + 2.5 проц. от (%.2f руб. - 300000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "10000 руб. + 2.5 %% от (%.2f руб. - 300000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 1000000 {
             calculatedAmount = 15000 + (amount - 500000) * 0.02
-            textResultSOU = String(format: "15000 руб. + 2 проц. от (%.2f руб. - 500000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "15000 руб. + 2 %% от (%.2f руб. - 500000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 3000000 {
             calculatedAmount = 25000 + (amount - 1000000) * 0.01
-            textResultSOU = String(format: "25000 руб. + 1 проц. от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "25000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 8000000 {
             calculatedAmount = 45000 + (amount - 3000000) * 0.007
-            textResultSOU = String(format: "45000 руб. + 0.7 проц. от (%.2f руб. - 3000000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "45000 руб. + 0.7 %% от (%.2f руб. - 3000000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 24000000 {
             calculatedAmount = 80000 + (amount - 8000000) * 0.0035
-            textResultSOU = String(format: "80000 руб. + 0.35 проц. от (%.2f руб. - 8000000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "80000 руб. + 0.35 %% от (%.2f руб. - 8000000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 50000000 {
             calculatedAmount = 136000 + (amount - 24000000) * 0.003
-            textResultSOU = String(format: "136000 руб. + 0.3 проц. от (%.2f руб. - 24000000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "136000 руб. + 0.3 %% от (%.2f руб. - 24000000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 100000000 {
             calculatedAmount = 214000 + (amount - 50000000) * 0.002
-            textResultSOU = String(format: "214000 руб. + 0.2 проц. от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "214000 руб. + 0.2 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount)
         } else {
             // Для суммы свыше 100 000 000 рублей
             calculatedAmount = min(314000 + (amount - 100000000) * 0.0015, 900000)
-            textResultSOU = String(format: "314000 руб. + 0.15 проц. от (%.2f руб. - 100000000 руб.) = %.2f руб., но не более 900000 руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "314000 руб. + 0.15 %% от (%.2f руб. - 100000000 руб.) = %.2f руб., но не более 900000 руб.", amount, calculatedAmount)
         }
 
         
@@ -172,16 +172,16 @@ public class Calculations {
 //            textResultAS = "Берётся 10000 руб."
 //        } else if amount <= 1000000 {
 //            calculatedAmount2 = 10000 + (amount - 100000) * 0.05
-//            textResultAS = String(format: "10000 руб. + 5 проц. от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount2)
+//            textResultAS = String(format: "10000 руб. + 5 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount2)
 //        } else if amount <= 10000000 {
 //            calculatedAmount2 = 55000 + (amount - 1000000) * 0.03
-//            textResultAS = String(format: "55000 руб. + 3 проц. от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount2)
+//            textResultAS = String(format: "55000 руб. + 3 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount2)
 //        } else if amount <= 50000000 {
 //            calculatedAmount2 = 325000 + (amount - 10000000) * 0.01
-//            textResultAS = String(format: "325000 руб. + 1 проц. от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount2)
+//            textResultAS = String(format: "325000 руб. + 1 %% от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount2)
 //        } else {
 //            calculatedAmount2 = 725000 + (amount - 50000000) * 0.005
-//            textResultAS = String(format: "725000 руб. + 0.5 проц. от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount2)
+//            textResultAS = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount2)
 //            
 //         
 //        }
@@ -192,17 +192,17 @@ public class Calculations {
             textResultAS = "Берётся 10000 руб."
         } else if amount <= 1000000 {
             calculatedAmount2 = 10000 + (amount - 100000) * 0.05
-            textResultAS = String(format: "10000 руб. + 5 проц. от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "10000 руб. + 5 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount2)
         } else if amount <= 10000000 {
             calculatedAmount2 = 55000 + (amount - 1000000) * 0.03
-            textResultAS = String(format: "5000 руб. + 3 проц. от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "5000 руб. + 3 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount2)
         } else if amount <= 50000000 {
             calculatedAmount2 = 325000 + (amount - 10000000) * 0.01
-            textResultAS = String(format: "325000 руб. + 1 проц. от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "325000 руб. + 1 %% от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount2)
         } else {
             // Ограничение на максимальную сумму
             calculatedAmount2 = min(725000 + (amount - 50000000) * 0.005, 10000000)
-            textResultAS = String(format: "725000 руб. + 0.5 проц. от (%.2f руб. - 50000000 руб.) = %.2f руб., но не более 10000000 руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб., но не более 10000000 руб.", amount, calculatedAmount2)
         }
 
         
@@ -291,44 +291,44 @@ public class Calculations {
         // суд общей юрисдикции
         if amount <= 20000 {
             calculatedAmount = max(400, amount * 0.04)
-            textResultSOU = String(format: "4 проц. от %.2f руб. = ", amount, calculatedAmount) + String(amount * 4 / 100) + " руб."
+            textResultSOU = String(format: "4 %% от %.2f руб. = ", amount, calculatedAmount) + String(amount * 4 / 100) + " руб."
             if calculatedAmount == 400 {
                 textResultSOU += " Берётся 400 руб."
             }
         } else if amount <= 100000 {
             calculatedAmount = 800 + (amount - 20000) * 0.03
-            textResultSOU = String(format: "800 руб. + 3 проц. от (%.2f руб. - 20000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+            textResultSOU = String(format: "800 руб. + 3 %% от (%.2f руб. - 20000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
         } else if amount <= 200000 {
             calculatedAmount = 3200 + (amount - 100000) * 0.02
-            textResultSOU = String(format: "3200 руб. + 2 проц. от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+            textResultSOU = String(format: "3200 руб. + 2 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
         } else if amount <= 1000000 {
             calculatedAmount = 5200 + (amount - 200000) * 0.01
-            textResultSOU = String(format: "5200 руб. + 1 проц. от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
+            textResultSOU = String(format: "5200 руб. + 1 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount, calculatedAmount)
         } else {
             calculatedAmount = min(60000, 13200 + (amount - 1000000) * 0.005)
-            textResultSOU = String(format: "13200 руб. + 0.5 проц. от (%.2f руб. - 1000000 руб.) = " + String(13200 + (amount - 1000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount, calculatedAmount)
+            textResultSOU = String(format: "13200 руб. + 0.5 %% от (%.2f руб. - 1000000 руб.) = " + String(13200 + (amount - 1000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount, calculatedAmount)
         }
         // арбитраж
         if amount <= 100000 {
             calculatedAmount2 = max(2000, amount * 0.04)
-            textResultAS = String(format: "4 проц. от %.2f руб. = ", amount, calculatedAmount) + String(amount * 4 / 100) + " руб."
+            textResultAS = String(format: "4 %% от %.2f руб. = ", amount, calculatedAmount) + String(amount * 4 / 100) + " руб."
             if calculatedAmount2 == 2000 {
                 textResultAS += " Берётся 2000 руб."
             }
         } else if amount <= 200000 {
             calculatedAmount2 = round(4000 + (amount - 100000) * 0.03)
-            textResultAS += String(format: "4000 руб. + 3 проц. от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
+            textResultAS += String(format: "4000 руб. + 3 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
         } else if amount <= 1000000 {
             calculatedAmount2 = 7000 + (amount - 200000) * 0.02
-            textResultAS += String(format: "7000 руб. + 2 проц. от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
+            textResultAS += String(format: "7000 руб. + 2 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
             
         } else if amount <= 2000000 {
             calculatedAmount2 = 23000 + (amount - 1000000) * 0.01
-            textResultAS += String(format: "23000 руб. + 1 проц. от (%.2f руб. - 1000000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
+            textResultAS += String(format: "23000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", amount, calculatedAmount2, calculatedAmount2)
             
         } else {
             calculatedAmount2 = min(33000 + (amount - 2000000) * 0.005, 200000)
-            textResultAS += String(format: "33000 руб. + 0.5 проц. от (%.2f руб. - 2000000 руб.) = " + String(33000 + (amount - 2000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount2, calculatedAmount2)
+            textResultAS += String(format: "33000 руб. + 0.5 %% от (%.2f руб. - 2000000 руб.) = " + String(33000 + (amount - 2000000) * 0.005) + " руб. Берётся %.2f руб.", amount, calculatedAmount2, calculatedAmount2)
         }
         
         // В зависимости от типа суда
@@ -352,43 +352,43 @@ public class Calculations {
         // Суд общей юрисдикции
         if amount <= 1000000 / 1000 {
             calculatedAmount = amount * 0.005
-            textResultSOU = String(format: "5 проц. от %.2f руб. = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "5 %% от %.2f руб. = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 10000000 / 1000 {
             calculatedAmount = 50000 / 1000 + (amount - 1000000 / 1000) * 0.04
-            textResultSOU = String(format: "50 тыс. руб. + 4 проц. от (%.2f руб. - 1 млн. руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "50 тыс. руб. + 4 %% от (%.2f руб. - 1 млн. руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 50000000 / 1000 {
             calculatedAmount = 410000 / 1000 + (amount - 10000000 / 1000) * 0.03
-            textResultSOU = String(format: "410 тыс. руб. + 3 проц. от (%.2f руб. - 10 млн. руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "410 тыс. руб. + 3 %% от (%.2f руб. - 10 млн. руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 100000000 / 1000 {
             calculatedAmount = 1610000 / 1000 + (amount - 50000000 / 1000) * 0.02
-            textResultSOU = String(format: "1 млн. 610 тыс. руб. + 2 проц. от (%.2f руб. - 50 млн. руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "1 млн. 610 тыс. руб. + 2 %% от (%.2f руб. - 50 млн. руб.) = %.2f руб.", amount, calculatedAmount)
         } else if amount <= 500000000 / 1000 {
             calculatedAmount = 2610000 / 1000 + (amount - 100000000 / 1000) * 0.01
-            textResultSOU = String(format: "2 млн. 610 тыс. руб. + 1 проц. от (%.2f руб. - 100 млн. руб.) = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "2 млн. 610 тыс. руб. + 1 %% от (%.2f руб. - 100 млн. руб.) = %.2f руб.", amount, calculatedAmount)
         } else {
             calculatedAmount = amount * 0.015
-            textResultSOU = String(format: "1.5 проц. от %.2f руб. = %.2f руб.", amount, calculatedAmount)
+            textResultSOU = String(format: "1.5 %% от %.2f руб. = %.2f руб.", amount, calculatedAmount)
         }
         
         // Арбитраж
         if amount <= 10000000 / 1000 {
             calculatedAmount2 = max(amount * 0.05, 1)
-            textResultAS = String(format: "5 проц. от %.2f руб., но не менее 1 руб. = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "5 %% от %.2f руб., но не менее 1 руб. = %.2f руб.", amount, calculatedAmount2)
         } else if amount <= 50000000 / 1000 {
             calculatedAmount2 = 500000 / 1000 + (amount - 10000000 / 1000) * 0.04
-            textResultAS = String(format: "500 тыс. руб. + 4 проц. от (%.2f руб. - 10 млн. руб.) = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "500 тыс. руб. + 4 %% от (%.2f руб. - 10 млн. руб.) = %.2f руб.", amount, calculatedAmount2)
         } else if amount <= 100000000 / 1000 {
             calculatedAmount2 = 2100000 / 1000 + (amount - 50000000 / 1000) * 0.03
-            textResultAS = String(format: "2 млн. 100 тыс. руб. + 3 проц. от (%.2f руб. - 50 млн. руб.) = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "2 млн. 100 тыс. руб. + 3 %% от (%.2f руб. - 50 млн. руб.) = %.2f руб.", amount, calculatedAmount2)
         } else if amount <= 500000000 / 1000 {
             calculatedAmount2 = 3600000 / 1000 + (amount - 100000000 / 1000) * 0.02
-            textResultAS = String(format: "3 млн. 600 тыс. руб. + 2 проц. от (%.2f руб. - 100 млн. руб.) = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "3 млн. 600 тыс. руб. + 2 %% от (%.2f руб. - 100 млн. руб.) = %.2f руб.", amount, calculatedAmount2)
         } else if amount <= 1000000000 / 1000 {
             calculatedAmount2 = 11600000 / 1000 + (amount - 500000000 / 1000) * 0.01
-            textResultAS = String(format: "11 млн. 600 тыс. руб. + 1 проц. от (%.2f руб. - 500 млн. руб.) = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "11 млн. 600 тыс. руб. + 1 %% от (%.2f руб. - 500 млн. руб.) = %.2f руб.", amount, calculatedAmount2)
         } else {
             calculatedAmount2 = 16600000 / 1000 + (amount - 1000000000 / 1000) * 0.005
-            textResultAS = String(format: "16 млн. 600 тыс. руб. + 0.5 проц. от (%.2f руб. - 1 млрд. руб.) = %.2f руб.", amount, calculatedAmount2)
+            textResultAS = String(format: "16 млн. 600 тыс. руб. + 0.5 %% от (%.2f руб. - 1 млрд. руб.) = %.2f руб.", amount, calculatedAmount2)
         }
         
         // В зависимости от типа суда
@@ -412,44 +412,44 @@ public class Calculations {
         // суд общей юрисдикции
         if claimAmount <= 20000 {
             calculatedAmount = max(400, claimAmount * 0.04)
-            textResultSOU = String(format: "4 проц. от %.2f руб. = ", claimAmount, calculatedAmount) + String(claimAmount * 4 / 100) + " руб."
+            textResultSOU = String(format: "4 %% от %.2f руб. = ", claimAmount, calculatedAmount) + String(claimAmount * 4 / 100) + " руб."
             if calculatedAmount == 400 {
                 textResultSOU += " Берётся 400 руб."
             }
         } else if claimAmount <= 100000 {
             calculatedAmount = 800 + (claimAmount - 20000) * 0.03
-            textResultSOU = String(format: "800 руб. + 3 проц. от (%.2f руб. - 20000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount, calculatedAmount)
+            textResultSOU = String(format: "800 руб. + 3 %% от (%.2f руб. - 20000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount, calculatedAmount)
         } else if claimAmount <= 200000 {
             calculatedAmount = 3200 + (claimAmount - 100000) * 0.02
-            textResultSOU = String(format: "3200 руб. + 2 проц. от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount, calculatedAmount)
+            textResultSOU = String(format: "3200 руб. + 2 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount, calculatedAmount)
         } else if claimAmount <= 1000000 {
             calculatedAmount = 5200 + (claimAmount - 200000) * 0.01
-            textResultSOU = String(format: "5200 руб. + 1 проц. от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount, calculatedAmount)
+            textResultSOU = String(format: "5200 руб. + 1 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount, calculatedAmount)
         } else {
             calculatedAmount = min(60000, 13200 + (claimAmount - 1000000) * 0.005)
-            textResultSOU = String(format: "13200 руб. + 0.5 проц. от (%.2f руб. - 1000000 руб.) = " + String(13200 + (claimAmount - 1000000) * 0.005) + " руб. Берётся %.2f руб.", claimAmount, calculatedAmount, calculatedAmount)
+            textResultSOU = String(format: "13200 руб. + 0.5 %% от (%.2f руб. - 1000000 руб.) = " + String(13200 + (claimAmount - 1000000) * 0.005) + " руб. Берётся %.2f руб.", claimAmount, calculatedAmount, calculatedAmount)
         }
         // арбитраж
         if claimAmount <= 100000 {
             calculatedAmount2 = max(2000, claimAmount * 0.04)
-            textResultAS = String(format: "4 проц. от %.2f руб. = ", claimAmount, calculatedAmount) + String(claimAmount * 4 / 100) + " руб."
+            textResultAS = String(format: "4 %% от %.2f руб. = ", claimAmount, calculatedAmount) + String(claimAmount * 4 / 100) + " руб."
             if calculatedAmount2 == 2000 {
                 textResultAS += " Берётся 2000 руб."
             }
         } else if claimAmount <= 200000 {
             calculatedAmount2 = round(4000 + (claimAmount - 100000) * 0.03)
-            textResultAS += String(format: "4000 руб. + 3 проц. от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount2, calculatedAmount2)
+            textResultAS += String(format: "4000 руб. + 3 %% от (%.2f руб. - 100000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount2, calculatedAmount2)
         } else if claimAmount <= 1000000 {
             calculatedAmount2 = 7000 + (claimAmount - 200000) * 0.02
-            textResultAS += String(format: "7000 руб. + 2 проц. от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount2, calculatedAmount2)
+            textResultAS += String(format: "7000 руб. + 2 %% от (%.2f руб. - 200000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount2, calculatedAmount2)
             
         } else if claimAmount <= 2000000 {
             calculatedAmount2 = 23000 + (claimAmount - 1000000) * 0.01
-            textResultAS += String(format: "23000 руб. + 1 проц. от (%.2f руб. - 1000000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount2, calculatedAmount2)
+            textResultAS += String(format: "23000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб. Берётся %.2f руб., округляется до целого числа.", claimAmount, calculatedAmount2, calculatedAmount2)
             
         } else {
             calculatedAmount2 = min(33000 + (claimAmount - 2000000) * 0.005, 200000)
-            textResultAS += String(format: "33000 руб. + 0.5 проц. от (%.2f руб. - 2000000 руб.) = " + String(33000 + (claimAmount - 2000000) * 0.005) + " руб. Берётся %.2f руб.", claimAmount, calculatedAmount2, calculatedAmount2)
+            textResultAS += String(format: "33000 руб. + 0.5 %% от (%.2f руб. - 2000000 руб.) = " + String(33000 + (claimAmount - 2000000) * 0.005) + " руб. Берётся %.2f руб.", claimAmount, calculatedAmount2, calculatedAmount2)
         }
         calculatedAmount = round(calculatedAmount)
         calculatedAmount2 = round(calculatedAmount2)
@@ -466,19 +466,19 @@ public class Calculations {
             textResultSOU = "Берётся 4000 руб."
         } else if claimAmount <= 500000 {
             calculatedAmount = 4000 + (claimAmount - 100000) * 0.04
-            textResultSOU = String(format: "4000 руб. + 4 проц. от (%.2f руб. - 100000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
+            textResultSOU = String(format: "4000 руб. + 4 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
         } else if claimAmount <= 1000000 {
             calculatedAmount = 20000 + (claimAmount - 500000) * 0.02
-            textResultSOU = String(format: "20000 руб. + 2 проц. от (%.2f руб. - 500000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
+            textResultSOU = String(format: "20000 руб. + 2 %% от (%.2f руб. - 500000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
         } else if claimAmount <= 10000000 {
             calculatedAmount = 30000 + (claimAmount - 1000000) * 0.01
-            textResultSOU = String(format: "30000 руб. + 1 проц. от (%.2f руб. - 1000000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
+            textResultSOU = String(format: "30000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
         } else if claimAmount <= 50000000 {
             calculatedAmount = 120000 + (claimAmount - 10000000) * 0.005
-            textResultSOU = String(format: "120000 руб. + 0.5 проц. от (%.2f руб. - 10000000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
+            textResultSOU = String(format: "120000 руб. + 0.5 %% от (%.2f руб. - 10000000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
         } else {
             calculatedAmount = 320000 + (claimAmount - 50000000) * 0.002
-            textResultSOU = String(format: "320000 руб. + 0.2 проц. от (%.2f руб. - 50000000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
+            textResultSOU = String(format: "320000 руб. + 0.2 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", claimAmount, calculatedAmount)
         }
         
         // арбитраж
@@ -487,16 +487,16 @@ public class Calculations {
             textResultAS = "Берётся 10000 руб."
         } else if claimAmount <= 1000000 {
             calculatedAmount2 = 10000 + (claimAmount - 100000) * 0.05
-            textResultAS = String(format: "10000 руб. + 5 проц. от (%.2f руб. - 100000 руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+            textResultAS = String(format: "10000 руб. + 5 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", claimAmount, calculatedAmount2)
         } else if claimAmount <= 10000000 {
             calculatedAmount2 = 55000 + (claimAmount - 1000000) * 0.03
-            textResultAS = String(format: "55000 руб. + 3 проц. от (%.2f руб. - 1000000 руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+            textResultAS = String(format: "55000 руб. + 3 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", claimAmount, calculatedAmount2)
         } else if claimAmount <= 50000000 {
             calculatedAmount2 = 325000 + (claimAmount - 10000000) * 0.01
-            textResultAS = String(format: "325000 руб. + 1 проц. от (%.2f руб. - 10000000 руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+            textResultAS = String(format: "325000 руб. + 1 %% от (%.2f руб. - 10000000 руб.) = %.2f руб.", claimAmount, calculatedAmount2)
         } else {
             calculatedAmount2 = 725000 + (claimAmount - 50000000) * 0.005
-            textResultAS = String(format: "725000 руб. + 0.5 проц. от (%.2f руб. - 50000000 руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+            textResultAS = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", claimAmount, calculatedAmount2)
         }
         
         calculatedAmount = round(calculatedAmount)
@@ -512,43 +512,43 @@ public class Calculations {
            // Суд общей юрисдикции
            if claimAmount <= 1000000 / 1000 {
                calculatedAmount = claimAmount * 0.005
-               textResultSOU = String(format: "5 проц. от %.2f руб. = %.2f руб.", claimAmount, calculatedAmount)
+               textResultSOU = String(format: "5 %% от %.2f руб. = %.2f руб.", claimAmount, calculatedAmount)
            } else if claimAmount <= 10000000 / 1000 {
                calculatedAmount = 50000 / 1000 + (claimAmount - 1000000 / 1000) * 0.04
-               textResultSOU = String(format: "50 тыс. руб. + 4 проц. от (%.2f руб. - 1 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount)
+               textResultSOU = String(format: "50 тыс. руб. + 4 %% от (%.2f руб. - 1 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount)
            } else if claimAmount <= 50000000 / 1000 {
                calculatedAmount = 410000 / 1000 + (claimAmount - 10000000 / 1000) * 0.03
-               textResultSOU = String(format: "410 тыс. руб. + 3 проц. от (%.2f руб. - 10 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount)
+               textResultSOU = String(format: "410 тыс. руб. + 3 %% от (%.2f руб. - 10 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount)
            } else if claimAmount <= 100000000 / 1000 {
                calculatedAmount = 1610000 / 1000 + (claimAmount - 50000000 / 1000) * 0.02
-               textResultSOU = String(format: "1 млн. 610 тыс. руб. + 2 проц. от (%.2f руб. - 50 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount)
+               textResultSOU = String(format: "1 млн. 610 тыс. руб. + 2 %% от (%.2f руб. - 50 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount)
            } else if claimAmount <= 500000000 / 1000 {
                calculatedAmount = 2610000 / 1000 + (claimAmount - 100000000 / 1000) * 0.01
-               textResultSOU = String(format: "2 млн. 610 тыс. руб. + 1 проц. от (%.2f руб. - 100 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount)
+               textResultSOU = String(format: "2 млн. 610 тыс. руб. + 1 %% от (%.2f руб. - 100 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount)
            } else {
                calculatedAmount = claimAmount * 0.015
-               textResultSOU = String(format: "1.5 проц. от %.2f руб. = %.2f руб.", claimAmount, calculatedAmount)
+               textResultSOU = String(format: "1.5 %% от %.2f руб. = %.2f руб.", claimAmount, calculatedAmount)
            }
            
            // Арбитраж
            if claimAmount <= 10000000 / 1000 {
                calculatedAmount2 = max(claimAmount * 0.05, 1)
-               textResultAS = String(format: "5 проц. от %.2f руб., но не менее 1 руб. = %.2f руб.", claimAmount, calculatedAmount2)
+               textResultAS = String(format: "5 %% от %.2f руб., но не менее 1 руб. = %.2f руб.", claimAmount, calculatedAmount2)
            } else if claimAmount <= 50000000 / 1000 {
                calculatedAmount2 = 500000 / 1000 + (claimAmount - 10000000 / 1000) * 0.04
-               textResultAS = String(format: "500 тыс. руб. + 4 проц. от (%.2f руб. - 10 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+               textResultAS = String(format: "500 тыс. руб. + 4 %% от (%.2f руб. - 10 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
            } else if claimAmount <= 100000000 / 1000 {
                calculatedAmount2 = 2100000 / 1000 + (claimAmount - 50000000 / 1000) * 0.03
-               textResultAS = String(format: "2 млн. 100 тыс. руб. + 3 проц. от (%.2f руб. - 50 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+               textResultAS = String(format: "2 млн. 100 тыс. руб. + 3 %% от (%.2f руб. - 50 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
            } else if claimAmount <= 500000000 / 1000 {
                calculatedAmount2 = 3600000 / 1000 + (claimAmount - 100000000 / 1000) * 0.02
-               textResultAS = String(format: "3 млн. 600 тыс. руб. + 2 проц. от (%.2f руб. - 100 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+               textResultAS = String(format: "3 млн. 600 тыс. руб. + 2 %% от (%.2f руб. - 100 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
            } else if claimAmount <= 1000000000 / 1000 {
                calculatedAmount2 = 11600000 / 1000 + (claimAmount - 500000000 / 1000) * 0.01
-               textResultAS = String(format: "11 млн. 600 тыс. руб. + 1 проц. от (%.2f руб. - 500 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+               textResultAS = String(format: "11 млн. 600 тыс. руб. + 1 %% от (%.2f руб. - 500 млн. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
            } else {
                calculatedAmount2 = 16600000 / 1000 + (claimAmount - 1000000000 / 1000) * 0.005
-               textResultAS = String(format: "16 млн. 600 тыс. руб. + 0.5 проц. от (%.2f руб. - 1 млрд. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
+               textResultAS = String(format: "16 млн. 600 тыс. руб. + 0.5 %% от (%.2f руб. - 1 млрд. руб.) = %.2f руб.", claimAmount, calculatedAmount2)
            }
            
            calculatedAmount = round(calculatedAmount)
