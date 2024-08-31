@@ -222,7 +222,7 @@ public class Calculations {
                         calculatedAmount = max(calculatedAmount/2, 8000)
                         if amount < 750000
                         {
-                            textLabel = String("Цена иска менее 750000 рублей, поэтому возможно заявление о вынесении приказа.")
+                            textLabel = String("Цена иска менее 750000 рублей, поэтому возможно заявление о вынесении приказа. Но не менее 8000 рублей.")
                          
                         } else {
                             textLabel = String("Цена иска более 750000 рублей, поэтому приказ не предусмотрен.")
