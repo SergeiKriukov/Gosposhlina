@@ -22,23 +22,24 @@ public enum LawType {
 }
 
 public enum FeeMode: Int, CaseIterable {
-    case ruCurrent
-    case ru2024
-    case ru1995
-    case ru1991
-    case kz1995
+    case ru09092024
+    case ru01012005_08092024
+    case ru31121995_31122005
+    case ru09121991_31121995
+    case kz31121995_01012005
+    
     
     public var title: String {
         switch self {
-        case .ruCurrent:
-            "С 01.01.2005 по 08.09.2024 года"
-        case .ru2024:
+        case .ru09092024:
             "Действующий c 09.09.2024 года"
-        case .ru1995:
-            "С 31.12.1995 по 01.01.2005 года"
-        case .ru1991:
+        case .ru01012005_08092024:
+            "С 01.01.2005 по 08.09.2024 года"
+        case .ru31121995_31122005:
+            "С 31.12.1995 по 31.12.2004 года"
+        case .ru09121991_31121995:
             "С 09.12.1991 по 31.12.1995 года"
-        case .kz1995:
+        case .kz31121995_01012005:
             "KZ: С 31.12.1995 по 01.01.2005 года"
         }
     }
@@ -95,7 +96,7 @@ public class Calculations {
     public var textResultAS = ""
     private var textLabel = ""
 
-    public var feeMode = FeeMode.ruCurrent
+    public var feeMode = FeeMode.ru09092024
     
     public init() {}
     
@@ -108,18 +109,29 @@ public class Calculations {
         var result = FeeResult(toPay: 0, description: "")
         
         switch mode {
-        case .ruCurrent:
-            print("calculate mode: \(mode.title)")
-            
-        case .ru2024:
-            print("calculate mode: \(mode.title)")
+        case .ru09092024:
             (result.toPay, result.description) = courtFee2024(
                 amount,
                 courtType: feeCode.courtType,
-                instanceType: feeCode.instanceType
+                instanceType: feeCode.instanceType,
+                isPrikaz: feeCode.isPrikaz,
+                isPravaPotrebirel: feeCode.potrebitel,
+                isFizik: feeCode.lawType == .fizik
             )
             
-        case .ru1995:
+            
+        case .ru01012005_08092024:
+            print("calculate mode: \(mode.title)")
+            (result.toPay, result.description) = courtFee(
+                amount,
+                courtType: feeCode.courtType,
+                instanceType: feeCode.instanceType,
+                isPrikaz: feeCode.isPrikaz,
+                isPravaPotrebirel: feeCode.potrebitel,
+                isFizik: feeCode.lawType == .fizik
+            )
+            
+        case .ru31121995_31122005:
             print("calculate mode: \(mode.title)")
             (result.toPay, result.description) = courtFee(
                 amount,
@@ -130,10 +142,10 @@ public class Calculations {
                 isFizik: feeCode.lawType == .fizik
             )
 
-        case .ru1991:
+        case .ru09121991_31121995:
             print("calculate mode: \(mode.title)")
 
-        case .kz1995:
+        case .kz31121995_01012005:
             print("calculate mode: \(mode.title)")
 
         }
@@ -142,83 +154,144 @@ public class Calculations {
         return result
     }
     
-    // Метод расчета с 09.09.2024 года
-    public func courtFee2024(_ amount: Double, courtType: CourtType, instanceType: InstanceType) -> (Double, String) {
-             // Суд общей юрисдикции
-        if amount <= 100000 {
-            calculatedAmount = 4000
-            textResultSOU = "Берётся 4000 руб."
-        } else if amount <= 300000 {
-            calculatedAmount = 4000 + (amount - 100000) * 0.03
-            textResultSOU = String(format: "4000 руб. + 3 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount)
-        } else if amount <= 500000 {
-            calculatedAmount = 10000 + (amount - 300000) * 0.025
-            textResultSOU = String(format: "10000 руб. + 2.5 %% от (%.2f руб. - 300000 руб.) = %.2f руб.", amount, calculatedAmount)
-        } else if amount <= 1000000 {
-            calculatedAmount = 15000 + (amount - 500000) * 0.02
-            textResultSOU = String(format: "15000 руб. + 2 %% от (%.2f руб. - 500000 руб.) = %.2f руб.", amount, calculatedAmount)
-        } else if amount <= 3000000 {
-            calculatedAmount = 25000 + (amount - 1000000) * 0.01
-            textResultSOU = String(format: "25000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount)
-        } else if amount <= 8000000 {
-            calculatedAmount = 45000 + (amount - 3000000) * 0.007
-            textResultSOU = String(format: "45000 руб. + 0.7 %% от (%.2f руб. - 3000000 руб.) = %.2f руб.", amount, calculatedAmount)
-        } else if amount <= 24000000 {
-            calculatedAmount = 80000 + (amount - 8000000) * 0.0035
-            textResultSOU = String(format: "80000 руб. + 0.35 %% от (%.2f руб. - 8000000 руб.) = %.2f руб.", amount, calculatedAmount)
-        } else if amount <= 50000000 {
-            calculatedAmount = 136000 + (amount - 24000000) * 0.003
-            textResultSOU = String(format: "136000 руб. + 0.3 %% от (%.2f руб. - 24000000 руб.) = %.2f руб.", amount, calculatedAmount)
-        } else if amount <= 100000000 {
-            calculatedAmount = 214000 + (amount - 50000000) * 0.002
-            textResultSOU = String(format: "214000 руб. + 0.2 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount)
-        } else {
-            // Для суммы свыше 100 000 000 рублей
-            calculatedAmount = min(314000 + (amount - 100000000) * 0.0015, 900000)
-            textResultSOU = String(format: "314000 руб. + 0.15 %% от (%.2f руб. - 100000000 руб.) = %.2f руб., но не более 900000 руб.", amount, calculatedAmount)
-        }
+    // Метод расчета с 09.09.2024 года (новая функция)
+    public func courtFee2024(_ amount: Double, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, isPravaPotrebirel: Bool, isFizik: Bool) -> (Double, String) {
+        
 
-        
-        
-//        // арбитраж
-//        if amount <= 100000 {
-//            calculatedAmount2 = 10000
-//            textResultAS = "Берётся 10000 руб."
-//        } else if amount <= 1000000 {
-//            calculatedAmount2 = 10000 + (amount - 100000) * 0.05
-//            textResultAS = String(format: "10000 руб. + 5 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount2)
-//        } else if amount <= 10000000 {
-//            calculatedAmount2 = 55000 + (amount - 1000000) * 0.03
-//            textResultAS = String(format: "55000 руб. + 3 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount2)
-//        } else if amount <= 50000000 {
-//            calculatedAmount2 = 325000 + (amount - 10000000) * 0.01
-//            textResultAS = String(format: "325000 руб. + 1 %% от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount2)
-//        } else {
-//            calculatedAmount2 = 725000 + (amount - 50000000) * 0.005
-//            textResultAS = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount2)
-//            
-//         
-//        }
-        
-        // арбитраж
-        if amount <= 100000 {
-            calculatedAmount2 = 10000
-            textResultAS = "Берётся 10000 руб."
-        } else if amount <= 1000000 {
-            calculatedAmount2 = 10000 + (amount - 100000) * 0.05
-            textResultAS = String(format: "10000 руб. + 5 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount2)
-        } else if amount <= 10000000 {
-            calculatedAmount2 = 55000 + (amount - 1000000) * 0.03
-            textResultAS = String(format: "5000 руб. + 3 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount2)
-        } else if amount <= 50000000 {
-            calculatedAmount2 = 325000 + (amount - 10000000) * 0.01
-            textResultAS = String(format: "325000 руб. + 1 %% от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount2)
-        } else {
-            // Ограничение на максимальную сумму
-            calculatedAmount2 = min(725000 + (amount - 50000000) * 0.005, 10000000)
-            textResultAS = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб., но не более 10000000 руб.", amount, calculatedAmount2)
-        }
+            
+            if courtType == .commonUrisdiction {
+                // все расчеты для СОЮ
+                if instanceType == .one {
+                    // расчеты госпошлины по первой инстанции
+                    // Суд общей юрисдикции, первая инстанция
+               if amount <= 100000 {
+                   calculatedAmount = 4000
+                   textResultSOU = "Берётся 4000 руб."
+               } else if amount <= 300000 {
+                   calculatedAmount = 4000 + (amount - 100000) * 0.03
+                   textResultSOU = String(format: "4000 руб. + 3 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount)
+               } else if amount <= 500000 {
+                   calculatedAmount = 10000 + (amount - 300000) * 0.025
+                   textResultSOU = String(format: "10000 руб. + 2.5 %% от (%.2f руб. - 300000 руб.) = %.2f руб.", amount, calculatedAmount)
+               } else if amount <= 1000000 {
+                   calculatedAmount = 15000 + (amount - 500000) * 0.02
+                   textResultSOU = String(format: "15000 руб. + 2 %% от (%.2f руб. - 500000 руб.) = %.2f руб.", amount, calculatedAmount)
+               } else if amount <= 3000000 {
+                   calculatedAmount = 25000 + (amount - 1000000) * 0.01
+                   textResultSOU = String(format: "25000 руб. + 1 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount)
+               } else if amount <= 8000000 {
+                   calculatedAmount = 45000 + (amount - 3000000) * 0.007
+                   textResultSOU = String(format: "45000 руб. + 0.7 %% от (%.2f руб. - 3000000 руб.) = %.2f руб.", amount, calculatedAmount)
+               } else if amount <= 24000000 {
+                   calculatedAmount = 80000 + (amount - 8000000) * 0.0035
+                   textResultSOU = String(format: "80000 руб. + 0.35 %% от (%.2f руб. - 8000000 руб.) = %.2f руб.", amount, calculatedAmount)
+               } else if amount <= 50000000 {
+                   calculatedAmount = 136000 + (amount - 24000000) * 0.003
+                   textResultSOU = String(format: "136000 руб. + 0.3 %% от (%.2f руб. - 24000000 руб.) = %.2f руб.", amount, calculatedAmount)
+               } else if amount <= 100000000 {
+                   calculatedAmount = 214000 + (amount - 50000000) * 0.002
+                   textResultSOU = String(format: "214000 руб. + 0.2 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount)
+               } else {
+                   // Для суммы свыше 100 000 000 рублей
+                   calculatedAmount = min(314000 + (amount - 100000000) * 0.0015, 900000)
+                   textResultSOU = String(format: "314000 руб. + 0.15 %% от (%.2f руб. - 100000000 руб.) = %.2f руб., но не более 900000 руб.", amount, calculatedAmount)
+               }
 
+                    
+                } else if instanceType == .two {
+                 //   апелляция
+                    if isFizik {
+                        calculatedAmount = 3000
+                        textLabel = "Фиксированная сумма за аппеляцию физического лица"
+                    } else {
+                        calculatedAmount = 15000
+                        textLabel = "Фиксированная сумма за аппеляцию юридического лица"
+                    }
+
+                    
+                } else if instanceType == .three {
+                    //   кассация
+                       if isFizik {
+                           calculatedAmount = 5000
+                           textLabel = "Фиксированная сумма за кассацию физического лица"
+                       } else {
+                           calculatedAmount = 20000
+                           textLabel = "Фиксированная сумма за кассацию юридического лица"
+                       }
+                } else if instanceType == .four {
+                    //   кассация ВС РФ
+                       if isFizik {
+                           calculatedAmount = 7000
+                           textLabel = "Фиксированная сумма за кассацию физического лица"
+                       } else {
+                           calculatedAmount = 25000
+                           textLabel = "Фиксированная сумма за кассацию юридического лица"
+                       }
+                }
+                
+            } else if courtType == .arbitrazh {
+                // все расчеты для АС
+                if instanceType == .one {
+                    // расчеты госпошлины по первой инстанции в АС
+
+                    if amount <= 100000 {
+                        calculatedAmount2 = 10000
+                        textResultAS = "Берётся 10000 руб."
+                    } else if amount <= 1000000 {
+                        calculatedAmount2 = 10000 + (amount - 100000) * 0.05
+                        textResultAS = String(format: "10000 руб. + 5 %% от (%.2f руб. - 100000 руб.) = %.2f руб.", amount, calculatedAmount2)
+                    } else if amount <= 10000000 {
+                        calculatedAmount2 = 55000 + (amount - 1000000) * 0.03
+                        textResultAS = String(format: "5000 руб. + 3 %% от (%.2f руб. - 1000000 руб.) = %.2f руб.", amount, calculatedAmount2)
+                    } else if amount <= 50000000 {
+                        calculatedAmount2 = 325000 + (amount - 10000000) * 0.01
+                        textResultAS = String(format: "325000 руб. + 1 %% от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount2)
+                    } else {
+                        // Ограничение на максимальную сумму
+                        calculatedAmount2 = min(725000 + (amount - 50000000) * 0.005, 10000000)
+                        textResultAS = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб., но не более 10000000 руб.", amount, calculatedAmount2)
+                    }
+
+                    
+                } else if instanceType == .two {
+                    //   апелляция
+                       if isFizik {
+                           calculatedAmount = 10000
+                           textLabel = "Фиксированная сумма за аппеляцию физического лица"
+                       } else {
+                           calculatedAmount = 30000
+                           textLabel = "Фиксированная сумма за аппеляцию юридического лица"
+                       }
+
+                       
+                   } else if instanceType == .three {
+                       //   кассация  в АС
+                          if isFizik {
+                              calculatedAmount = 2000
+                              textLabel = "Фиксированная сумма за кассацию физического лица"
+                          } else {
+                              calculatedAmount = 50000
+                              textLabel = "Фиксированная сумма за кассацию юридического лица"
+                          }
+                   } else if instanceType == .four {
+                       //   кассация ВС РФ в АС
+                          if isFizik {
+                              calculatedAmount = 30000
+                              textLabel = "Фиксированная сумма за кассацию физического лица"
+                          } else {
+                              calculatedAmount = 80000
+                              textLabel = "Фиксированная сумма за кассацию юридического лица"
+                          }
+                   }
+                
+                    
+                   
+                
+            }
+        
+      
+        
+    
         
         // Тип суда (СОЮ, АС). Потом еще добавим KS, TS01, TS02 и т.д.
         // Инстанция: 1, 2, 3, 4
@@ -297,10 +370,13 @@ public class Calculations {
             textLabel = textResultAS
         }
         
+        // SOU.2.PR0.ZPP0.FL = 3000
+        // SOU.2.PR0.ZPP0.UL = 15000
+        
         return (calculatedAmount, textLabel)
     }
     
-    // Метод расчета с 2005 до 2024 года
+    // Метод расчета с 01.01.2005 до 08.09.2024 года (новая функция)
     public func courtFee(_ amount: Double, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, isPravaPotrebirel: Bool, isFizik: Bool) -> (Double, String) {
         // суд общей юрисдикции
         if amount <= 20000 {
@@ -360,7 +436,7 @@ public class Calculations {
         return (calculatedAmount, textLabel)
     }
 
-    // Метод расчета госпошлины до 2005 года
+    // Метод расчета госпошлины с 31.12.1995 по 31.12.2004 года (новая функция)
     public func courtFeeBefore2005(_ amount: Double, courtType: CourtType) -> (Double, String) {
         
         // Суд общей юрисдикции
@@ -420,7 +496,7 @@ public class Calculations {
         return (calculatedAmount, textLabel)
     }
 
-    // Метод расчета госпошлины
+    // Метод расчета госпошлины (старая функция)
     public func calculateCourtFee(_ claimAmount: String, courtTypeFee: String, instanceFee: String, isPrikaz: Bool, isPravaPotrebirel: Bool, typeIstec: String) -> (Double, Double, String, String) {
         guard let claimAmount = Double(claimAmount) else { return (0, 0, "", "") }
         // суд общей юрисдикции
@@ -470,7 +546,7 @@ public class Calculations {
         return (calculatedAmount, calculatedAmount2, textResultSOU, textResultAS)
     }
     
-    // Новая функция расчета с 09.09.2024 года
+    // Новая функция расчета с 09.09.2024 года (старая функция)
     public func calculateCourtFee2024(_ claimAmount: String, courtTypeFee: String, instanceFee: String) -> (Double, Double, String, String) {
         guard let claimAmount = Double(claimAmount) else { return (0, 0, "", "") }
         
@@ -519,7 +595,7 @@ public class Calculations {
         return (calculatedAmount, calculatedAmount2, textResultSOU, textResultAS)
     }
     
-    // Функция расчета госпошлины до 2005 года
+    // Функция расчета госпошлины до 2005 года (старая функция)
        public func calculateCourtFeeBefore2005(_ claimAmount: String, courtTypeFee: String) -> (Double, Double, String, String) {
            guard let claimAmount = Double(claimAmount) else { return (0, 0, "", "") }
            
