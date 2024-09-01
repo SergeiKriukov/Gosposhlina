@@ -45,17 +45,6 @@ public enum FeeMode: Int, CaseIterable {
     }
 }
 
-public struct FeeResult {
-    public var toPay: Double
-    public var description: String
-    
-    public init(toPay: Double, description: String) {
-        self.toPay = toPay
-        self.description = description
-    }
-    
-}
-
     // Формирование чисел - округление до двух знаков, и всегда вверх
 public let numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
@@ -87,8 +76,8 @@ public class Calculations {
     }
     
     /// Common method
-    public func courtFeeFor(_ mode: FeeMode, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, potrebitel: Bool, lawType: LawType, of amount: Double) -> FeeResult {
-        var result = FeeResult(toPay: 0, description: "")
+    public func courtFeeFor(_ mode: FeeMode, courtType: CourtType, instanceType: InstanceType, isPrikaz: Bool, potrebitel: Bool, lawType: LawType, of amount: Double) -> (Double, String) {
+        var result = (0.0, "")
         
         switch mode {
         case .ru09092024:
@@ -614,9 +603,9 @@ public class Calculations {
 
         }
         
-        result.toPay = round(calculatedAmount)
-        result.description = textLabel
-        return result
+        let toPay = round(calculatedAmount)
+        let description = textLabel
+        return (toPay, description)
     }
     
 //
