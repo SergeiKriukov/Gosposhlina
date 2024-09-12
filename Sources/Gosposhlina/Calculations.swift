@@ -45,6 +45,17 @@ public enum FeeMode: Int, CaseIterable {
     }
 }
 
+// Функция для форматирования числа
+func formatNumber(_ number: Double) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal             // Стиль форматирования
+    formatter.locale = Locale(identifier: "ru_RU") // Локаль для замены точки на запятую
+    formatter.maximumFractionDigits = 2          // Максимум два знака после запятой
+    formatter.minimumFractionDigits = 2          // Минимум два знака после запятой
+    formatter.groupingSeparator = " "            // Разделение разрядов пробелами
+    return formatter.string(from: NSNumber(value: number)) ?? "0,00"
+}
+
     // Формирование чисел - округление до двух знаков, и всегда вверх
 public let numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
@@ -139,7 +150,8 @@ public class Calculations {
                             textLabel = "Госпошлина не может превышать 10 000 000 рублей."
                         }
                     }
-                    textLabel = ("\(calculatedAmount)")
+                
+                    textLabel = ("\(formatNumber(Double(calculatedAmount) ?? 0))")
                 }
             }
 
