@@ -45,17 +45,6 @@ public enum FeeMode: Int, CaseIterable {
     }
 }
 
-// Функция для форматирования числа
-func formatNumber(_ number: Double) -> String {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .decimal             // Стиль форматирования
-    formatter.locale = Locale(identifier: "ru_RU") // Локаль для замены точки на запятую
-    formatter.maximumFractionDigits = 2          // Максимум два знака после запятой
-    formatter.minimumFractionDigits = 2          // Минимум два знака после запятой
-    formatter.groupingSeparator = " "            // Разделение разрядов пробелами
-    return formatter.string(from: NSNumber(value: number)) ?? "0,00"
-}
-
     // Формирование чисел - округление до двух знаков, и всегда вверх
 public let numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
@@ -65,6 +54,17 @@ public let numberFormatter: NumberFormatter = {
         // formatter.roundingMode = .up
     return formatter
 }()
+
+private func formatNumber(_ number: Double) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.locale = Locale(identifier: "ru_RU")
+    formatter.maximumFractionDigits = 2
+    formatter.minimumFractionDigits = 2
+    formatter.groupingSeparator = " "
+    return formatter.string(from: NSNumber(value: number)) ?? "0,00"
+}
+
 
 
 public class Calculations {
@@ -86,6 +86,7 @@ public class Calculations {
         feeMode.title
     }
     
+    // Обратный расчет госпошлины
     public func courtFeeReverse(_ modeReverse: FeeMode, courtType: CourtType, of amount: Double) -> (Double, String) {
         var result = (0.0, "")
         
@@ -94,38 +95,78 @@ public class Calculations {
             switch courtType {
       
                 case .commonUrisdiction:
-                    if amount == 0 {
-                        textLabel = "0"
-                    } else if amount == 4000 {
-                        textLabel = "Любая сумма до 100 000 рублей."
-                    } else if amount < 4000 {
-                        textLabel = "Госпошлина не может быть меньше 4000 руб."
-                    } else {
-                        if amount <= 10000 {
-                            calculatedAmount = (amount - 4000) / 0.03 + 100000
-                        } else if amount > 10000 && amount <= 15000 {
-                            calculatedAmount = (amount - 10000) / 0.025 + 300000
-                        } else if amount > 15000 && amount <= 25000 {
-                            calculatedAmount = (amount - 15000) / 0.02 + 500000
-                        } else if amount > 25000 && amount <= 45000 {
-                            calculatedAmount = (amount - 25000) / 0.01 + 1000000
-                        } else if amount > 45000 && amount <= 80000 {
-                            calculatedAmount = (amount - 45000) / 0.007 + 3000000
-                        } else if amount > 80000 && amount <= 136000 {
-                            calculatedAmount = (amount - 80000) / 0.0035 + 8000000
-                        } else if amount > 136000 && amount <= 214000 {
-                            calculatedAmount = (amount - 136000) / 0.003 + 24000000
-                        } else if amount > 214000 && amount <= 314000 {
-                            calculatedAmount = (amount - 214000) / 0.002 + 50000000
-                        } else if amount > 314000 {
-                            calculatedAmount = (amount - 314000) / 0.0015 + 100000000
-                            if calculatedAmount > 900000 {
-                                calculatedAmount = 900000
-                                textLabel = "Госпошлина не может превышать 900 000 рублей."
-                            }
-                        }
-                        textLabel = ("\(calculatedAmount)")
-                    }
+                switch amount {
+                case 0:
+                    textLabel = "0"
+
+                case 400:
+                    textLabel = "Любая сумма до 10 000 рублей. \nПри цене иска до 10 000 рублей госпошлина равна 400 рублям, поэтому точно указать, какая цена иска, если госпошлина равна 400 рублей, нельзя. Это любая сумма до 10 000 рублей."
+
+                case ..<400:
+                    textLabel = "Госпошлина не может быть меньше 400 руб."
+
+                case 60000:
+                    textLabel = "Любая сумма свыше 10 360 000 руб. \nПри цене иска 10 360 000 рублей госпошлина достигает размера 60 000 рублей и далее уже при любой цене иска госпошлина остается 60 000 рублей. Поэтому точно сказать, какая цена иска при госпошлине, равной 60 000 рублей, нельзя. Это любая сумма свыше 10 360 000 рублей."
+
+                case 60001...:
+                    textLabel = "Введенная госпошлина больше, чем 60 000 рублей, поэтому, возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 60 000 рублей). \nТакую ситуацию данный алгоритм не обрабатывает."
+
+                case 400...800:
+                    calculatedAmount = (amount - 400) / 0.04
+                    textLabel = formatNumber(calculatedAmount)
+
+                case 801...3200:
+                    calculatedAmount = (amount - 800) / 0.03 + 20000
+                    textLabel = formatNumber(calculatedAmount)
+
+                case 3201...5200:
+                    calculatedAmount = (amount - 3200) / 0.02 + 100000
+                    textLabel = formatNumber(calculatedAmount)
+
+                case 5201...13200:
+                    calculatedAmount = (amount - 5200) / 0.01 + 200000
+                    textLabel = formatNumber(calculatedAmount)
+
+                case 13201...60000:
+                    calculatedAmount = (amount - 13200) / 0.005 + 1000000
+                    textLabel = formatNumber(calculatedAmount)
+
+                default:
+                    textLabel = "Некорректное значение госпошлины."
+                }
+
+//                    if amount == 0 {
+//                        textLabel = "0"
+//                    } else if amount == 4000 {
+//                        textLabel = "Любая сумма до 100 000 рублей."
+//                    } else if amount < 4000 {
+//                        textLabel = "Госпошлина не может быть меньше 4000 руб."
+//                    } else {
+//                        if amount <= 10000 {
+//                            calculatedAmount = (amount - 4000) / 0.03 + 100000
+//                        } else if amount > 10000 && amount <= 15000 {
+//                            calculatedAmount = (amount - 10000) / 0.025 + 300000
+//                        } else if amount > 15000 && amount <= 25000 {
+//                            calculatedAmount = (amount - 15000) / 0.02 + 500000
+//                        } else if amount > 25000 && amount <= 45000 {
+//                            calculatedAmount = (amount - 25000) / 0.01 + 1000000
+//                        } else if amount > 45000 && amount <= 80000 {
+//                            calculatedAmount = (amount - 45000) / 0.007 + 3000000
+//                        } else if amount > 80000 && amount <= 136000 {
+//                            calculatedAmount = (amount - 80000) / 0.0035 + 8000000
+//                        } else if amount > 136000 && amount <= 214000 {
+//                            calculatedAmount = (amount - 136000) / 0.003 + 24000000
+//                        } else if amount > 214000 && amount <= 314000 {
+//                            calculatedAmount = (amount - 214000) / 0.002 + 50000000
+//                        } else if amount > 314000 {
+//                            calculatedAmount = (amount - 314000) / 0.0015 + 100000000
+//                            if calculatedAmount > 900000 {
+//                                calculatedAmount = 900000
+//                                textLabel = "Госпошлина не может превышать 900 000 рублей."
+//                            }
+//                        }
+//                        textLabel = ("\(calculatedAmount)")
+//                    }
 
                 
                 
@@ -150,11 +191,10 @@ public class Calculations {
                             textLabel = "Госпошлина не может превышать 10 000 000 рублей."
                         }
                     }
-                
-                    textLabel = ("\(formatNumber(Double(calculatedAmount) ?? 0))")
+               
+                    textLabel = ("\(calculatedAmount)")
                 }
             }
-
             
         case .ru01012005_08092024:
             switch courtType {
@@ -239,6 +279,7 @@ public class Calculations {
                 }
            
             }
+     
         case .ru31121995_31122004:
             switch courtType {
             case .commonUrisdiction:
