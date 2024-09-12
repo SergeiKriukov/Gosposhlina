@@ -68,11 +68,63 @@ public class Calculations {
     private var textLabel = ""
 
     public var feeMode = FeeMode.ru09092024
-    
+     
     public init() {}
     
     public var feeModeTitle: String {
         feeMode.title
+    }
+    
+    public func courtFeeReverse(_ modeReverse: FeeMode, courtType: CourtType, of amount: Double) -> (Double, String) {
+        var result = (0.0, "")
+        
+        switch modeReverse {
+        case .ru09092024:
+            switch courtType {
+            case .commonUrisdiction:
+                print("arbitrazh")
+            case .arbitrazh:
+                print("arbitrazh")
+           
+            }
+        case .ru01012005_08092024:
+            switch courtType {
+            case .commonUrisdiction:
+                print("arbitrazh")
+            case .arbitrazh:
+                print("arbitrazh")
+           
+            }
+        case .ru31121995_31122004:
+            switch courtType {
+            case .commonUrisdiction:
+                print("arbitrazh")
+            case .arbitrazh:
+                print("arbitrazh")
+           
+            }
+        case .ru09121991_31121995:
+            switch courtType {
+            case .commonUrisdiction:
+                print("arbitrazh")
+            case .arbitrazh:
+                print("arbitrazh")
+           
+            }
+        case .kz31121995_01012005:
+            switch courtType {
+            case .commonUrisdiction:
+                print("arbitrazh")
+            case .arbitrazh:
+                print("arbitrazh")
+           
+            }
+        }
+
+        
+        let toPay = round(calculatedAmount)
+        let description = textLabel
+        return (toPay, description)
     }
     
     /// Common method
@@ -116,7 +168,7 @@ public class Calculations {
                     } else if amount <= 100000000 {
                         calculatedAmount = 214000 + (amount - 50000000) * 0.002
                         textLabel = String(format: "214000 руб. + 0.2 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount)
-                    } else {
+                    } else if amount > 100000000 {
                         // Для суммы свыше 100 000 000 рублей
                         calculatedAmount = min(314000 + (amount - 100000000) * 0.0015, 900000)
                         textLabel = String(format: "314000 руб. + 0.15 %% от (%.2f руб. - 100000000 руб.) = %.2f руб., но не более 900000 руб.", amount, calculatedAmount)
