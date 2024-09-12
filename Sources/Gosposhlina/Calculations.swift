@@ -131,7 +131,7 @@ public class Calculations {
                             }
                             
 
-                    textLabel = "---"
+                    textLabel = ("\(calculatedAmount)")
                    
                 }
                 
