@@ -168,10 +168,14 @@ public class Calculations {
                     } else if amount <= 100000000 {
                         calculatedAmount = 214000 + (amount - 50000000) * 0.002
                         textLabel = String(format: "214000 руб. + 0.2 %% от (%.2f руб. - 50000000 руб.) = %.2f руб.", amount, calculatedAmount)
-                    } else if amount > 100000000 {
+                    } else {
                         // Для суммы свыше 100 000 000 рублей
                         calculatedAmount = min(314000 + (amount - 100000000) * 0.0015, 900000)
-                        textLabel = String(format: "314000 руб. + 0.15 %% от (%.2f руб. - 100000000 руб.) = %.2f руб., но не более 900000 руб.", amount, calculatedAmount)
+                        if calculatedAmount > 900000 {
+                            textLabel = String(format: "314000 руб. + 0.15 %% от (%.2f руб. - 100000000 руб.) = %.2f руб., но не более 900000 руб.", amount, calculatedAmount)
+                        } else {
+                            textLabel = String(format: "314000 руб. + 0.15 %% от (%.2f руб. - 100000000 руб.) = %.2f руб.", amount, calculatedAmount)
+                        }
                     }
                     
                     // Если приказ
