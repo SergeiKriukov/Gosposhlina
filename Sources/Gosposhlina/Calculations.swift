@@ -86,9 +86,10 @@ public class Calculations {
                 case .commonUrisdiction:
                     if amount == 0 {
                         textLabel = "0"
-                    } 
+                    } else {textLabel = "66776"}
                 
-//                else if amount == 4000 {
+                
+//                if amount == 4000 {
 //                        textLabel = "Любая сумма до 100 000 рублей."
 //                    } else if amount < 4000 {
 //                        textLabel = "Госпошлина не может быть меньше 4000 руб."
