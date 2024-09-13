@@ -133,7 +133,7 @@ public class Calculations {
                         // (314 000 руб. + 0.15% от суммы, превышающей 100 000 000 руб., но не более 900 000 руб.)
                         calculatedAmount = (amount - 314000) / 0.0015 + 100000000
                         if calculatedAmount > 900000 {
-                            calculatedAmount = 900000
+                      //      calculatedAmount = 900000
                             textLabel = "Госпошлина не может превышать 900 000 рублей. Возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 900 000 рублей)."
                         }
                     }
@@ -204,10 +204,10 @@ public class Calculations {
                         if calculatedAmount > 1_905_000_000 {
                             // Ситуация, когда госпошлина достигает максимума в 10 000 000 руб.
                             textLabel = "Госпошлина не может превышать 10 000 000 рублей. Возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 10 000 000 рублей). Такую ситуацию наш алгоритм не обрабатывает."
-                            calculatedAmount = 10_000_000
+                     //       calculatedAmount = 10_000_000
                         }
                     }
-                    textLabel = "\(calculatedAmount)"
+                    textLabel = formatNumber(calculatedAmount)
                 }
 
 //                if amount == 0 {
@@ -274,8 +274,8 @@ public class Calculations {
                                 calculatedAmount = (amount - 13200) / 0.005 + 1000000
                             }
 
-                            textLabel = ("\(calculatedAmount)")
-                   
+                        //    textLabel = ("\(calculatedAmount)")
+                    textLabel = formatNumber(calculatedAmount)
                 }
                 
                 
@@ -315,8 +315,8 @@ public class Calculations {
                         calculatedAmount = (amount - 33000) / 0.005 + 2000000
                     }
                     
-                    textLabel = ("\(calculatedAmount)")
-                    
+                //    textLabel = ("\(calculatedAmount)")
+                    textLabel = formatNumber(calculatedAmount)
                     
                 }
            
