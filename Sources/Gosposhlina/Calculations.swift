@@ -137,52 +137,10 @@ public class Calculations {
                     } else if amount > 314000 {
                         // (314 000 руб. + 0.15% от суммы, превышающей 100 000 000 руб., но не более 900 000 руб.)
                         calculatedAmount = (amount - 314000) / 0.0015 + 100000000
-//                        if calculatedAmount > 900000 {
-//                      //      calculatedAmount = 900000
-//                            textLabel = "Госпошлина не может превышать 900 000 рублей. Возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 900 000 рублей)."
-//                        }
                     }
                     textLabel = formatNumber(calculatedAmount)
                 }
-
-                
-//                    if amount == 0 {
-//                        textLabel = "0"
-//                    } else if amount == 4000 {
-//                        textLabel = "Любая сумма до 100 000 рублей."
-//                    } else if amount < 4000 {
-//                        textLabel = "Госпошлина не может быть меньше 4000 руб."
-//                    } else if amount == 490_666_667 {
-//                        textLabel = "Любая сумма свыше 490 666 667 руб. При цене иска 490 666 667 рублей госпошлина достигает размера 900 000 рублей и далее уже при любой цене иска госпошлина остается 900 000 рублей. Поэтому точно сказать, какая цена иска при госпошлине, равной 900 000 рублей, нельзя. Это любая сумма свыше 490 666 667 рублей."
-//                    } else {
-//                        if amount <= 10000 {
-//                            calculatedAmount = (amount - 4000) / 0.03 + 100000
-//                        } else if amount > 10000 && amount <= 15000 {
-//                            calculatedAmount = (amount - 10000) / 0.025 + 300000
-//                        } else if amount > 15000 && amount <= 25000 {
-//                            calculatedAmount = (amount - 15000) / 0.02 + 500000
-//                        } else if amount > 25000 && amount <= 45000 {
-//                            calculatedAmount = (amount - 25000) / 0.01 + 1000000
-//                        } else if amount > 45000 && amount <= 80000 {
-//                            calculatedAmount = (amount - 45000) / 0.007 + 3000000
-//                        } else if amount > 80000 && amount <= 136000 {
-//                            calculatedAmount = (amount - 80000) / 0.0035 + 8000000
-//                        } else if amount > 136000 && amount <= 214000 {
-//                            calculatedAmount = (amount - 136000) / 0.003 + 24000000
-//                        } else if amount > 214000 && amount <= 314000 {
-//                            calculatedAmount = (amount - 214000) / 0.002 + 50000000
-//                        } else if amount > 314000 {
-//                            calculatedAmount = (amount - 314000) / 0.0015 + 100000000
-//                            if calculatedAmount > 900000 {
-//                                calculatedAmount = 900000
-//                                textLabel = "Госпошлина не может превышать 900 000 рублей."
-//                            }
-//                        }
-//                            //      textLabel = ("\(calculatedAmount)")
-//                        textLabel = formatNumber(calculatedAmount)
-//                    }
-
-                
+    
                 
             case .arbitrazh:
                 if amount == 0 {
@@ -215,40 +173,11 @@ public class Calculations {
                     } else if amount > 725000 {
                         // (725 000 руб. + 0.5% от суммы, превышающей 50 000 000 руб.)
                         calculatedAmount = (amount - 725000) / 0.005 + 50000000
-//                        if calculatedAmount > 10000000 {
-//
-//                            textLabel = "Госпошлина не может превышать 10 000 000 рублей. Возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 10 000 000 рублей)."
-//                        }
+
                     }
                     textLabel = formatNumber(calculatedAmount)
                 }
 
-//                if amount == 0 {
-//                    textLabel = "0"
-//                } else if amount == 10000 {
-//                    textLabel = "Любая сумма до 100 000 рублей. При цене иска до 10 0000 рублей госпошлина равна 4 000 рублям, поэтому точно указать какая цена иска, если госпошлина равно 4 000 рублей – нельзя. Это любая сумма до 10 0000 рублей."
-//                } else if amount < 10000 {
-//                    textLabel = "Госпошлина не может быть меньше 10000 руб."
-//                } else if amount == 1_905_000_000 {
-//                    textLabel = "Любая сумма свыше 1 905 000 000 руб. При цене иска 1 905 000 000 рублей госпошлина достигает размера 10 000 000 рублей и далее уже при любой цене иска госпошлина остается 10 000 000 рублей. Поэтому точно сказать, какая цена иска при госпошлине, равной 10 000 000 рублей, нельзя. Это любая сумма свыше 1 905 000 000 рублей"
-//                } else {
-//                    if amount <= 55000 {
-//                        calculatedAmount = (amount - 10000) / 0.05 + 100000
-//                    } else if amount > 55000 && amount <= 325000 {
-//                        calculatedAmount = (amount - 55000) / 0.03 + 1000000
-//                    } else if amount > 325000 && amount <= 725000 {
-//                        calculatedAmount = (amount - 325000) / 0.01 + 10000000
-//                    } else if amount > 725000 {
-//                        calculatedAmount = (amount - 725000) / 0.005 + 50000000
-//                        if calculatedAmount > 10000000 {
-//                            calculatedAmount = 10000000
-//                            textLabel = "Госпошлина не может превышать 10 000 000 рублей. Возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 10 000 000 рублей). Такую ситуацию наш алгоритм не обрабатывает."
-//                        }
-//                    }
-//               
-//                    textLabel = ("\(calculatedAmount)")
-//                    
-//                }
             }
             
         case .ru01012005_08092024:
