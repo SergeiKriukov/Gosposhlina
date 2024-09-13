@@ -86,39 +86,36 @@ public class Calculations {
                 case .commonUrisdiction:
                     if amount == 0 {
                         textLabel = "0"
-                    } else {textLabel = "66776"}
-                
-                
-//                if amount == 4000 {
-//                        textLabel = "Любая сумма до 100 000 рублей."
-//                    } else if amount < 4000 {
-//                        textLabel = "Госпошлина не может быть меньше 4000 руб."
-//                    } else {
-//                        if amount <= 10000 {
-//                            calculatedAmount = (amount - 4000) / 0.03 + 100000
-//                        } else if amount > 10000 && amount <= 15000 {
-//                            calculatedAmount = (amount - 10000) / 0.025 + 300000
-//                        } else if amount > 15000 && amount <= 25000 {
-//                            calculatedAmount = (amount - 15000) / 0.02 + 500000
-//                        } else if amount > 25000 && amount <= 45000 {
-//                            calculatedAmount = (amount - 25000) / 0.01 + 1000000
-//                        } else if amount > 45000 && amount <= 80000 {
-//                            calculatedAmount = (amount - 45000) / 0.007 + 3000000
-//                        } else if amount > 80000 && amount <= 136000 {
-//                            calculatedAmount = (amount - 80000) / 0.0035 + 8000000
-//                        } else if amount > 136000 && amount <= 214000 {
-//                            calculatedAmount = (amount - 136000) / 0.003 + 24000000
-//                        } else if amount > 214000 && amount <= 314000 {
-//                            calculatedAmount = (amount - 214000) / 0.002 + 50000000
-//                        } else if amount > 314000 {
-//                            calculatedAmount = (amount - 314000) / 0.0015 + 100000000
-//                            if calculatedAmount > 900000 {
-//                                calculatedAmount = 900000
-//                                textLabel = "Госпошлина не может превышать 900 000 рублей."
-//                            }
-//                        }
-//                        textLabel = ("\(calculatedAmount)")
-//                    }
+                    } else if amount == 4000 {
+                        textLabel = "Любая сумма до 100 000 рублей."
+                    } else if amount < 4000 {
+                        textLabel = "Госпошлина не может быть меньше 4000 руб."
+                    } else {
+                        if amount <= 10000 {
+                            calculatedAmount = (amount - 4000) / 0.03 + 100000
+                        } else if amount > 10000 && amount <= 15000 {
+                            calculatedAmount = (amount - 10000) / 0.025 + 300000
+                        } else if amount > 15000 && amount <= 25000 {
+                            calculatedAmount = (amount - 15000) / 0.02 + 500000
+                        } else if amount > 25000 && amount <= 45000 {
+                            calculatedAmount = (amount - 25000) / 0.01 + 1000000
+                        } else if amount > 45000 && amount <= 80000 {
+                            calculatedAmount = (amount - 45000) / 0.007 + 3000000
+                        } else if amount > 80000 && amount <= 136000 {
+                            calculatedAmount = (amount - 80000) / 0.0035 + 8000000
+                        } else if amount > 136000 && amount <= 214000 {
+                            calculatedAmount = (amount - 136000) / 0.003 + 24000000
+                        } else if amount > 214000 && amount <= 314000 {
+                            calculatedAmount = (amount - 214000) / 0.002 + 50000000
+                        } else if amount > 314000 {
+                            calculatedAmount = (amount - 314000) / 0.0015 + 100000000
+                            if calculatedAmount > 900000 {
+                                calculatedAmount = 900000
+                                textLabel = "Госпошлина не может превышать 900 000 рублей."
+                            }
+                        }
+                        textLabel = ("\(calculatedAmount)")
+                    }
 
                 
                 
@@ -182,9 +179,10 @@ public class Calculations {
                                 calculatedAmount = (amount - 5200) / 0.01 + 200000
                             } else if amount > 13200 && amount <= 60000 {
                                 calculatedAmount = (amount - 13200) / 0.005 + 1000000
+                                textLabel = "999"
                             }
 
-                    textLabel = ("\(calculatedAmount)")
+                        //     textLabel = ("\(calculatedAmount)")
                    
                 }
                 
