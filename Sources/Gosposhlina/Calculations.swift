@@ -216,7 +216,10 @@ public class Calculations {
                     } else if amount > 725000 {
                         // (725 000 руб. + 0.5% от суммы, превышающей 50 000 000 руб.)
                         calculatedAmount = (amount - 725000) / 0.005 + 50000000
-                        
+                        if calculatedAmount > 10000000 {
+
+                            textLabel = "Госпошлина не может превышать 10 000 000 рублей. Возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 10 000 000 рублей)."
+                        }
                     }
                     textLabel = formatNumber(calculatedAmount)
                 }
