@@ -55,6 +55,17 @@ public let numberFormatter: NumberFormatter = {
     return formatter
 }()
 
+// Функция для форматирования числа
+func formatNumber(_ number: Double) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal             // Стиль форматирования
+    formatter.locale = Locale(identifier: "ru_RU") // Локаль для замены точки на запятую
+    formatter.maximumFractionDigits = 2          // Максимум два знака после запятой
+    formatter.minimumFractionDigits = 2          // Минимум два знака после запятой
+    formatter.groupingSeparator = " "            // Разделение разрядов пробелами
+    return formatter.string(from: NSNumber(value: number)) ?? "0,00"
+}
+
 
 public class Calculations {
     public var calculatedAmount = 0.0
@@ -116,7 +127,8 @@ public class Calculations {
                                 textLabel = "Госпошлина не может превышать 900 000 рублей."
                             }
                         }
-                        textLabel = ("\(calculatedAmount)")
+                            //      textLabel = ("\(calculatedAmount)")
+                        textLabel = formatNumber(calculatedAmount)
                     }
 
                 
@@ -141,7 +153,7 @@ public class Calculations {
                         calculatedAmount = (amount - 725000) / 0.005 + 50000000
                         if calculatedAmount > 10000000 {
                             calculatedAmount = 10000000
-                            textLabel = "Госпошлина не может превышать 10 000 000 рублей. Возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 10 000 000 рублей). Такую ситуацию данный алгоритм не обрабатывает."
+                            textLabel = "Госпошлина не может превышать 10 000 000 рублей. Возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 10 000 000 рублей). Такую ситуацию наш алгоритм не обрабатывает."
                         }
                     }
                
@@ -169,7 +181,7 @@ public class Calculations {
               
                     
                     if amount > 60000 {
-                        textLabel = "Введенная госпошлина больше, чем 60000 рублей, поэтому, возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 60000 рублей). Такую ситуацию данный алгоритм не обрабатывает."
+                        textLabel = "Введенная госпошлина больше, чем 60000 рублей, поэтому, возможно, данная госпошлина – это сумма госпошлин по нескольким требованиям (т.к. больше максимальной суммы в 60000 рублей). Такую ситуацию наш алгоритм не обрабатывает."
                     }
                     
                 } else {
