@@ -462,7 +462,7 @@ public class Calculations {
                     //   кассация  в АС
                     switch lawType {
                     case .fizik:
-                        calculatedAmount = 2000
+                        calculatedAmount = 20000
                         textLabel = "Фиксированная сумма за кассацию физического лица"
                     case .urik:
                         calculatedAmount = 50000
@@ -947,7 +947,7 @@ public class Calculations {
 //                   } else if instanceType == .three {
 //                       //   кассация  в АС
 //                          if isFizik {
-//                              calculatedAmount = 2000
+//                              calculatedAmount = 20000
 //                              textLabel = "Фиксированная сумма за кассацию физического лица"
 //                          } else {
 //                              calculatedAmount = 50000
