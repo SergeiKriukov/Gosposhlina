@@ -425,9 +425,10 @@ public class Calculations {
                         calculatedAmount = 325000 + (amount - 10000000) * 0.01
                         textLabel = String(format: "325000 руб. + 1 %% от (%.2f руб. - 10000000 руб.) = %.2f руб.", amount, calculatedAmount)
                     } else {
-                        // Ограничение на максимальную сумму
-                        calculatedAmount = min(725000 + (amount - 50000000) * 0.005, 10000000)
-                        textLabel = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб., но не более 10000000 руб.", amount, calculatedAmount)
+                        // Ограничение на максимальную сумму: показываем результат формулы до ограничения
+                        let formulaResult = 725000 + (amount - 50000000) * 0.005
+                        calculatedAmount = min(formulaResult, 10000000)
+                        textLabel = String(format: "725000 руб. + 0.5 %% от (%.2f руб. - 50000000 руб.) = %.2f руб., но не более 10000000 руб.", amount, formulaResult)
                     }
                     
                     // Если приказ
